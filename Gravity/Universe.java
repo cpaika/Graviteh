@@ -26,7 +26,7 @@ class Universe
 	/**
 	Updates the acceleration and velocity and position of all the bodies in the universe.
 	*/
-	public void update()
+	public void refresh()
 	{
 		for(int i = 0; i <= bodies.length - 1; i++)//check boundary conditions
 		{
@@ -57,5 +57,10 @@ class Universe
 				b.sumForce(forceA.getInverse());
 			}
 		}
+	}
+	public void update()
+	{
+		calcGrav();
+		refresh();
 	}
 }

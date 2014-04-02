@@ -84,7 +84,7 @@ class Body
 	{
 		force = force.addition(a);
 	}
-	/**
+	/*
 	Updates the acceleration and velocity of the Body
 	*/
 	public void update()

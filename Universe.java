@@ -1,3 +1,5 @@
+import java.util.ArrayList<E>
+
 class Universe
 {
 	private static final UNIVERSE_SIZE = 100;
@@ -35,6 +37,21 @@ class Universe
 		for(int i = 0; i <= array.length - 1, i++)//check boundary conditions
 		{
 			Body[i].draw();
+		}
+	}
+	//TODO:  Calculate all the gravity forces
+	public void calcGrav()
+	{
+		ArrayList<Body> collection = new ArrayList<Body>(bodies);//not sure if an array is a collection
+		while(!collection.isEmpty())
+		{
+			Body a = collection.get(0);
+			collection.remove(0);
+			for(Body b in collection)
+			{
+				Vector force = calcForce(a, b);
+				//TODO need to figure out how the directions work
+			}
 		}
 	}
 }

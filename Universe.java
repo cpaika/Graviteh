@@ -22,7 +22,7 @@ class Universe
 		return instance;
 	}
 	/**
-	Updates the positions of all the bodies in the universe.
+	Updates the acceleration and velocity and position of all the bodies in the universe.
 	*/
 	public void update()
 	{
@@ -31,7 +31,9 @@ class Universe
 			Body[i].update();
 		}
 	}
-	
+	/**
+	Draws the objects to screen
+	*/
 	public void draw()
 	{
 		for(int i = 0; i <= array.length - 1, i++)//check boundary conditions
@@ -39,18 +41,18 @@ class Universe
 			Body[i].draw();
 		}
 	}
-	//TODO:  Calculate all the gravity forces
 	public void calcGrav()
 	{
-		ArrayList<Body> collection = new ArrayList<Body>(bodies);//not sure if an array is a collection
-		while(!collection.isEmpty())
+		ArrayList<Body> collection = new ArrayList<Body>(Arrays.asList(bodies));//not sure if an array is a collection
+		while(collection.size() > 1)
 		{
 			Body a = collection.get(0);
 			collection.remove(0);
 			for(Body b in collection)
 			{
-				Vector force = calcForce(a, b);
-				//TODO need to figure out how the directions work
+				Vector forceA = calcForce(a, b);
+				a.sumForce(forceA);
+				b.sumForce(forceA.getInverse());
 			}
 		}
 	}

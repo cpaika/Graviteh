@@ -51,5 +51,9 @@ class Vector
 		double y = yComp + a.getYComp();
 		return (new Vector(x,y));
 	}
+	public Vector getInverse()
+	{
+		return new Vector(-xComp,-yComp);
+	}
 	
 }

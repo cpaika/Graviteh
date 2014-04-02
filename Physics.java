@@ -14,7 +14,7 @@ class Physics
 
 	/*
 	Calculates the force acting between the two bodies.  Force is the same for both objects, however it points in opposite directions for both.  
-	This returns the absolute value of the force.  Assumes that posX and posY are the center of the Body objects.
+	This returns the vector of the force for Body a.  Assumes that posX and posY are the center of the Body objects.  Body b's vector is the inverse of this resultant vector
 	*/
 	public static double calcForce(Body a, Body b)
 	{

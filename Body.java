@@ -8,7 +8,33 @@ class Body
 	Vector accel;//acceleration vector
 	Vector force;//force vector
 	int mass;
-
+	private Display display;
+	
+	/**
+	Constructor, takes in the x position, y position, velocity vector, mass and reference to display singleton
+	*/
+	public Body(int x, int y, Vector v, int mass, Display d)
+	{
+		posX = x;
+		posY = y;
+		velocity = v;
+		mass = m;
+		display = d;
+	}
+	
+	/**
+	Constructor, takes in the x position, y position, mass and reference to display singleton.
+	Sets velocity to 0;
+	*/
+	public Body(int x, int y, Vector v, int mass, Display d)
+	{
+		posX = x;
+		posY = y;
+		velocity = new Vector(0,0);
+		mass = m;
+		display = d;
+	}
+	
 	public int getMass()
 	{
 		return mass;
@@ -57,5 +83,13 @@ class Body
 	public sumForce(Vector a)
 	{
 		force = force.addition(a);
+	}
+	/**
+	Updates the acceleration and velocity of the Body
+	*/
+	public void update()
+	{
+		calcAcceleration();
+		calcVelocity();
 	}
 }

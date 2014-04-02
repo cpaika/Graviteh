@@ -51,4 +51,5 @@ class Vector
 		double y = yComp + a.getYComp();
 		return (new Vector(x,y));
 	}
+	
 }

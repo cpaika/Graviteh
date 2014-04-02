@@ -1,4 +1,4 @@
-import java.lang.Math;
+package Gravity;
 class Body
 {
 	//Center of the body object
@@ -13,7 +13,7 @@ class Body
 	/**
 	Constructor, takes in the x position, y position, velocity vector, mass and reference to display singleton
 	*/
-	public Body(int x, int y, Vector v, int mass, Display d)
+	public Body(int x, int y, Vector v, int m, Display d)
 	{
 		posX = x;
 		posY = y;
@@ -26,7 +26,7 @@ class Body
 	Constructor, takes in the x position, y position, mass and reference to display singleton.
 	Sets velocity to 0;
 	*/
-	public Body(int x, int y, Vector v, int mass, Display d)
+	public Body(int x, int y, int m, Display d)
 	{
 		posX = x;
 		posY = y;
@@ -54,24 +54,24 @@ class Body
 	/*
 	Calculates a new positon based on velocity.
 	*/
-	public calcPosition()
+	public void calcPosition()
 	{
-		posX = Math.round(this.velocity.getXComp());//might give you errors 
-		posY = Math.round(this.velocity.getYComp());
+		posX = (int)(posX + this.velocity.getXComp() + .5);//.5 rounds to the nearest int
+		posY = (int)(posY + this.velocity.getYComp() + .5);
 	}
 	/*
 	Calculates velocity vector.  Clears the acceleration vector when finished
 	*/
-	public calcVelocity()
+	public void calcVelocity()
 	{
 		velocity = velocity.addition(accel);
-		acceleration = new Vector(0,0);
+		accel = new Vector(0,0);
 	}
 	/*
 	At First all the forces between all the bodies are calulated and summed.  Then the resultant force vector is turned into an acceleration vector.  
 	This function clears the force variable once done.
 	*/
-	public calcAcceleration()
+	public void calcAcceleration()
 	{
 		accel = force.divideBy(mass);
 		force = new Vector(0,0);
@@ -80,7 +80,7 @@ class Body
 	/*
 	This function takes a force vector and adds it to the current combination of force vectors
 	*/
-	public sumForce(Vector a)
+	public void sumForce(Vector a)
 	{
 		force = force.addition(a);
 	}
@@ -91,5 +91,9 @@ class Body
 	{
 		calcAcceleration();
 		calcVelocity();
+	}
+	public void draw()
+	{
+		//put in display code here
 	}
 }

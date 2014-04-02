@@ -1,3 +1,4 @@
+package Gravity;
 class Vector
 {
 	private double magnitude;
@@ -12,7 +13,7 @@ class Vector
 	}
 
 	//TODO make a function that makes a vector from a magnitude and angle
-	public Vector(double magnitude, double angle)
+	public Vector(double magnitude, float angle)
 	{
 		
 	}

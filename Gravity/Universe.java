@@ -1,19 +1,21 @@
-import java.util.ArrayList<E>
+package Gravity;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 class Universe
 {
-	private static final UNIVERSE_SIZE = 100;
+	private static final int UNIVERSE_SIZE = 100;
 	private static Universe instance = null;
 	Body[] bodies;
 	private Universe()//private to ensure singleton
 	{
-		bodies = new Body[UNIVERSE_SIZE]
+		bodies = new Body[UNIVERSE_SIZE];
 	}
 	
 	/**
 	Returns the singleton instance of the Universe
 	*/
-	public static getInstance()
+	public static Universe getInstance()
 	{
 		if(instance==null)
 		{
@@ -26,9 +28,9 @@ class Universe
 	*/
 	public void update()
 	{
-		for(int i = 0; i <= array.length - 1, i++)//check boundary conditions
+		for(int i = 0; i <= bodies.length - 1; i++)//check boundary conditions
 		{
-			Body[i].update();
+			bodies[i].update();
 		}
 	}
 	/**
@@ -36,9 +38,9 @@ class Universe
 	*/
 	public void draw()
 	{
-		for(int i = 0; i <= array.length - 1, i++)//check boundary conditions
+		for(int i = 0; i <= bodies.length - 1; i++)//check boundary conditions
 		{
-			Body[i].draw();
+			bodies[i].draw();
 		}
 	}
 	public void calcGrav()
@@ -48,9 +50,9 @@ class Universe
 		{
 			Body a = collection.get(0);
 			collection.remove(0);
-			for(Body b in collection)
+			for(Body b : collection)
 			{
-				Vector forceA = calcForce(a, b);
+				Vector forceA = Physics.calcForce(a, b);
 				a.sumForce(forceA);
 				b.sumForce(forceA.getInverse());
 			}

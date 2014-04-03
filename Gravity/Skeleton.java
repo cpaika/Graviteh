@@ -9,7 +9,7 @@ public class Skeleton extends JFrame
         add(engine);
         setTitle("Skeleton");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(300, 280);
+        setSize(600, 560);
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(false);

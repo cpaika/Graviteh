@@ -3,7 +3,7 @@ class Body
 {
 	//Center of the body object
 	int posX, posY;
-
+	int height, width = 0; //TODO:initialize these
 	Vector velocity;//velocity vector
 	Vector accel;//acceleration vector
 	Vector force;//force vector
@@ -13,26 +13,30 @@ class Body
 	/**
 	Constructor, takes in the x position, y position, velocity vector, mass and reference to display singleton
 	*/
-	public Body(int x, int y, Vector v, int m, Display d)
+	public Body(int x, int y, Vector v, int m, Display d, int h, int w)
 	{
 		posX = x;
 		posY = y;
 		velocity = v;
 		mass = m;
 		display = d;
+		height = h;
+		width = w;
 	}
 	
 	/**
 	Constructor, takes in the x position, y position, mass and reference to display singleton.
 	Sets velocity to 0;
 	*/
-	public Body(int x, int y, int m, Display d)
+	public Body(int x, int y, int m, Display d, int h, int w)
 	{
 		posX = x;
 		posY = y;
 		velocity = new Vector(0,0);
 		mass = m;
 		display = d;
+		height = h;
+		width = w;
 	}
 	
 	public int getMass()

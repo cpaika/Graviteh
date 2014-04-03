@@ -1,8 +1,13 @@
 package Gravity;
 
-public class GameEngine 
+import java.awt.Color;
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
+
+public class GameEngine extends JPanel
 {
-	
+	Skeleton sk;
 	boolean playing = true;
 	Universe theGame;
 	Timer time;
@@ -12,6 +17,8 @@ public class GameEngine
 	private GameEngine()
 	{
 		theGame = Universe.getInstance();
+		sk= new Skeleton(this);
+		time = new Timer(60);
 	}
 	public static void main(String args[])
 	{
@@ -23,8 +30,13 @@ public class GameEngine
 		while(playing)
 		{
 			time.update();
-			theGame.update();
+			//theGame.update();
+			repaint();
 		}
+	}
+	public void paintComponent(Graphics g)
+	{
+
 	}
 
 }

@@ -38,12 +38,6 @@ class Vector
 		return;
 	}
 
-	//TODO make a function that makes a vector from a magnitude and angle
-	public Vector(double magnitude, float angle)
-	{
-		
-	}
-
 	public double getXComp()
 	{
 		return xComp;

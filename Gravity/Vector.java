@@ -1,4 +1,7 @@
 package Gravity;
+
+import java.lang.Math;
+
 class Vector
 {
 	private double magnitude;
@@ -10,6 +13,29 @@ class Vector
 	{
 		xComp = x;
 		yComp = y;
+	}
+	/*
+	Creates a component vector from the x and y distance as well as the force between these two body's
+	TODO:  Create a unit test
+	*/
+	public Vector(int x, int y, double force)
+	{
+		if(x==0)
+		{
+			xComp = 0;
+			yComp = force;
+			return;
+		}
+		else if(y==0)
+		{
+			xComp = force;
+			yComp = 0;
+			return;
+		}
+		double angle = Math.atan(y/x);
+		x = (int) ((Math.cos(angle)*force)+.5);
+		y = (int) ((Math.sin(angle)*force)+.5);
+		return;
 	}
 
 	//TODO make a function that makes a vector from a magnitude and angle

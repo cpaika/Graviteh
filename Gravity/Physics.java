@@ -1,11 +1,10 @@
 package Gravity;
 
 import java.lang.Math;
-//TODO Look into using the Java vector class
 
 class Physics
 {
-	//This is the constant that determines how pwerful the force of gravity is, the higher it is the more powerful.
+	//This is the constant that determines how powerful the force of gravity is, the higher it is the more powerful.
 	public static final double gravConst = 1; 
 	private Physics()
 	{
@@ -22,9 +21,7 @@ class Physics
 		double xSquared = (a.posX-b.posX)*(a.posX-b.posX);
 		double ySquared = (a.posY-b.posY)*(a.posY-b.posY);
 		double distance = Math.abs(Math.sqrt(xSquared+ySquared));
-		//TODO instead of returning a scalar return a vector
-		float angle = 0;
-		Vector result = new Vector((gravConst*totalMass)/(distance*distance), angle);
+		Vector result = new Vector(a.posX-b.posX, a.posY-b.posY, (gravConst*totalMass)/(distance*distance));
 		return result;
 	}
 }

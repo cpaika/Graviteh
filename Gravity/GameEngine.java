@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 
 public class GameEngine extends JPanel
 {
+	private final static int WIDTH = 600;
+	private final static int HEIGHT = 560;
 	Skeleton sk;
 	boolean playing = true;
 	Universe theGame;
@@ -17,7 +19,8 @@ public class GameEngine extends JPanel
 	private GameEngine()
 	{
 		theGame = Universe.getInstance();
-		sk= new Skeleton(this);
+		Display.initialize(WIDTH, HEIGHT);
+		sk= new Skeleton(this, WIDTH, HEIGHT);
 		time = new Timer(60);
 	}
 	public static void main(String args[])
@@ -30,13 +33,13 @@ public class GameEngine extends JPanel
 		while(playing)
 		{
 			time.update();
-			//theGame.update();
+			theGame.update();
 			repaint();
 		}
 	}
 	public void paintComponent(Graphics g)
 	{
-
+		
 	}
 
 }

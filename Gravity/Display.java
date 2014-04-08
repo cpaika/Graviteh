@@ -5,12 +5,13 @@ import java.awt.Graphics;
 
 public class Display 
 {
-	int startX, startY;
-	int endX, endY;
+	private static Display window = null;
+	private int startX, startY;
+	private int endX, endY;
 	Graphics g;
 	
 	/**
-	 * Takes in the width and height of the screen
+	 * Takes in the width and height of the screen, need to be called before any other function call
 	 */
 	private Display(int width, int height)
 	{
@@ -23,7 +24,8 @@ public class Display
 	{
 		if((((absX + width) > startX) && (absX < endX)) && (((absY + height) > startY) && (absY < endY)))//if the object about to be displayed is inside the screen
 		{
-			//TODO: put in draw code
+			//TODO: Expand on draw code
+			
 		}
 	}
 	/*
@@ -32,5 +34,27 @@ public class Display
 	public void getBufferedImage(Graphics g)
 	{
 		//TODO: Implement
+	}
+	/*
+	 * Returns a Display with specified width and height.  If already initialized returns the current Display
+	 */
+	public static Display initialize(int w, int h)
+	{
+		if(window != null)
+		{
+			return window;
+		}
+		else
+		{
+			return new Display(w, h);
+		}
+	}
+	/**
+	 * Returns a reference to the display object to work with
+	 * @return
+	 */
+	public static Display getDisplay()
+	{
+		return window;
 	}
 }

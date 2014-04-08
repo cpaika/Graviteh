@@ -63,4 +63,11 @@ class Universe
 		calcGrav();
 		refresh();
 	}
+	/**
+	 * Generates Body's for a test universes
+	 */
+	public void generateTest()
+	{
+		
+	}
 }

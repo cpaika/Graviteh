@@ -2,13 +2,16 @@ package Gravity;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 
 public class Display 
 {
 	private static Display window = null;
 	private int startX, startY;
 	private int endX, endY;
-	Graphics g;
+	private Graphics g;
+	private Image offscreen;
+	private int width, height;
 	
 	/**
 	 * Takes in the width and height of the screen, need to be called before any other function call
@@ -18,23 +21,27 @@ public class Display
 		startX = startY = 0;
 		endX = width;
 		endY = height;
+		this.width = width;
+		this.height = height;
 	}
 	
-	public void draw(Body x,int absX, int absY, int height, int width, Color color)//Fix sprite
+	//TODO: implement support for moving the screen
+	public void draw(int absX, int absY, int width, int height, Color color)//Fix sprite
 	{
 		if((((absX + width) > startX) && (absX < endX)) && (((absY + height) > startY) && (absY < endY)))//if the object about to be displayed is inside the screen
 		{
-			//TODO: Expand on draw code
-			
+			g.setColor(color);
+			g.drawOval(absX, absY, width, height);
 		}
 	}
 	/*
 	 * Returns the finished BufferedImage for the current frame
 	 */
-	public void getBufferedImage(Graphics g)
+	private void getBufferedImage(Graphics g)
 	{
-		//TODO: Implement
+		//TODO: Implement/ Do we even need this
 	}
+	
 	/*
 	 * Returns a Display with specified width and height.  If already initialized returns the current Display
 	 */
@@ -46,7 +53,8 @@ public class Display
 		}
 		else
 		{
-			return new Display(w, h);
+			window = new Display(w, h);
+			return window;
 		}
 	}
 	/**
@@ -56,5 +64,27 @@ public class Display
 	public static Display getDisplay()
 	{
 		return window;
+	}
+	private void clearScreen()
+	{
+		if(g != null)
+		{
+			g.setColor(Color.black);
+			g.clearRect(0, 0, endX, endY);
+		}
+	}
+	public void prime(Graphics graphics)
+	{
+		g = graphics;
+		clearScreen();
+	}
+	public void stopDrawing()
+	{
+		g = null;//making sure no errors arise from using g from now on
+	}
+	
+	public void drawArrow(int originX, int originY, int destX, int destY)
+	{
+		g.drawLine(originX, originY, destX, destY);
 	}
 }

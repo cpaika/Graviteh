@@ -4,39 +4,47 @@ class Body
 	//Center of the body object
 	int posX, posY;
 	int height, width = 0; //TODO:initialize these
-	Vector velocity;//velocity vector
-	Vector accel;//acceleration vector
+	protected Vector velocity;//velocity vector
+	protected Vector accel;//acceleration vector
 	Vector force;//force vector
 	int mass;
-	private Display display;
+	protected Display display;
 	
 	/**
 	Constructor, takes in the x position, y position, velocity vector, mass and reference to display singleton
 	*/
-	public Body(int x, int y, Vector v, int m, Display d, int h, int w)
+	public Body(int x, int y, Vector v, int m, int h, int w)
 	{
 		posX = x;
 		posY = y;
 		velocity = v;
 		mass = m;
-		display = d;
 		height = h;
 		width = w;
+		display = null;
+		setUp();
 	}
 	
 	/**
 	Constructor, takes in the x position, y position, mass and reference to display singleton.
 	Sets velocity to 0;
 	*/
-	public Body(int x, int y, int m, Display d, int h, int w)
+	public Body(int x, int y, int m, int h, int w)
 	{
 		posX = x;
 		posY = y;
 		velocity = new Vector(0,0);
 		mass = m;
-		display = d;
 		height = h;
 		width = w;
+		display = Display.getDisplay();
+		setUp();
+	}
+	
+	public void setUp()
+	{
+		force = new Vector(0,0);
+		accel = new Vector(0,0);
 	}
 	
 	public int getMass()
@@ -95,9 +103,11 @@ class Body
 	{
 		calcAcceleration();
 		calcVelocity();
+		calcPosition();
 	}
 	public void draw()
 	{
 		//put in display code here
+		System.out.println("X: " + posX + " Y: " + posY);
 	}
 }

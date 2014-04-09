@@ -4,12 +4,13 @@ import java.util.Arrays;
 
 class Universe
 {
-	private static final int UNIVERSE_SIZE = 100;
+	private static final int UNIVERSE_SIZE = 2;
 	private static Universe instance = null;
 	Body[] bodies;
 	private Universe()//private to ensure singleton
 	{
 		bodies = new Body[UNIVERSE_SIZE];
+		generateTest();
 	}
 	
 	/**
@@ -68,6 +69,8 @@ class Universe
 	 */
 	public void generateTest()
 	{
-		
+		bodies[0] = new Planet(300,105,100,5,5);
+		bodies[1] = new Planet(400,200,190,5,5);
+		//bodies[2] = new Planet(21,100,100,10,10);
 	}
 }

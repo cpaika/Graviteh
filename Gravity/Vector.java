@@ -33,8 +33,8 @@ class Vector
 			return;
 		}
 		double angle = Math.atan(y/x);
-		x = (int) ((Math.cos(angle)*force)+.5);
-		y = (int) ((Math.sin(angle)*force)+.5);
+		xComp = (int) ((Math.cos(angle)*force)+.5);
+		yComp = (int) ((Math.sin(angle)*force)+.5);
 		return;
 	}
 
@@ -76,5 +76,19 @@ class Vector
 	{
 		return new Vector(-xComp,-yComp);
 	}
-	
+	/**
+	 * Returns a string representation of the vector
+	 */
+	public String toString()
+	{
+		String s = "Vector X: " + xComp + " Vector Y: " + yComp;
+		return s;
+	}
+	/**
+	 * Draws a vector to the screen based on its components, with its start point as input
+	 */
+	public void drawToScreen(int x, int y)
+	{
+		Display.getDisplay().drawArrow(x, y, (int) (xComp+.5 + x), (int) (yComp+.5 + y));
+	}
 }

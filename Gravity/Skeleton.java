@@ -13,5 +13,6 @@ public class Skeleton extends JFrame
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(false);
+        setFocusable(true);
     }
 }

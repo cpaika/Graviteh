@@ -72,6 +72,15 @@ class Vector
 		double y = yComp + a.getYComp();
 		return (new Vector(x,y));
 	}
+	public Vector specialAddition(Vector a)
+	{
+		double x = xComp + a.getXComp();
+		double y = yComp + a.getYComp();
+		System.out.println("Old Vector x: " + this.getXComp() + " and y: " + this.getYComp());
+		System.out.println("Addition vector x:" + a.getXComp() + " and y: " + a.getYComp());
+		System.out.println("New vector x:" + x + " and y: " + y);
+		return (new Vector(x,y));
+	}
 	public Vector getInverse()
 	{
 		return new Vector(-xComp,-yComp);

@@ -17,7 +17,9 @@ public class Planet extends Body
 	}
 	public void draw()
 	{
+		//TODO: posX is the center not the top left
 		Display.getDisplay().draw(posX, posY, width, height, c);
 		velocity.drawToScreen(posX, posY);
+		force = new Vector(0,0);
 	}
 }

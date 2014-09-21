@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 class Universe
 {
-	private static final int UNIVERSE_SIZE = 2;
+	private static final int UNIVERSE_SIZE = 1;
 	private static Universe instance = null;
 	Body[] bodies;
 	private Universe()//private to ensure singleton
@@ -46,7 +46,7 @@ class Universe
 	}
 	public void calcGrav()
 	{
-		ArrayList<Body> collection = new ArrayList<Body>(Arrays.asList(bodies));//not sure if an array is a collection
+		ArrayList<Body> collection = new ArrayList<Body>(Arrays.asList(bodies));
 		while(collection.size() > 1)
 		{
 			Body a = collection.get(0);
@@ -69,8 +69,16 @@ class Universe
 	 */
 	public void generateTest()
 	{
-		bodies[0] = new Planet(300,105,100,5,5);
-		bodies[1] = new Planet(400,200,190,5,5);
+		bodies[0] = new Planet(500,150,1000,5,5);
+		//bodies[1] = new Planet(300,100,190,5,5);
+		//bodies[2] = new Planet(700,100,190,5,5);
 		//bodies[2] = new Planet(21,100,100,10,10);
+	}
+	/**
+	 * @return Returns a reference to the current player controlled body
+	 */
+	public Body getPlayer()
+	{
+		return bodies[0];
 	}
 }

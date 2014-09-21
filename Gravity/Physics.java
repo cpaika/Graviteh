@@ -20,7 +20,7 @@ class Physics
 		double totalMass = a.getMass()*b.getMass();
 		double xSquared = (a.posX-b.posX)*(a.posX-b.posX);
 		double ySquared = (a.posY-b.posY)*(a.posY-b.posY);
-		double distance = Math.abs(Math.sqrt(xSquared+ySquared));
+		double distance = Math.sqrt(xSquared+ySquared);
 		Vector result = new Vector(a.posX-b.posX, a.posY-b.posY, (gravConst*totalMass)/(distance*distance));
 		return result;
 	}

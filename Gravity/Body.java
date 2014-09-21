@@ -1,5 +1,5 @@
 package Gravity;
-class Body
+class Body implements Controllable
 {
 	//Center of the body object
 	int posX, posY;
@@ -64,7 +64,7 @@ class Body
 		return velocity;
 	}
 	/*
-	Calculates a new positon based on velocity.
+	Calculates a new position based on velocity.
 	*/
 	public void calcPosition()
 	{
@@ -80,7 +80,7 @@ class Body
 		accel = new Vector(0,0);
 	}
 	/*
-	At First all the forces between all the bodies are calulated and summed.  Then the resultant force vector is turned into an acceleration vector.  
+	At First all the forces between all the bodies are calculated and summed.  Then the resultant force vector is turned into an acceleration vector.  
 	This function clears the force variable once done.
 	*/
 	public void calcAcceleration()
@@ -101,6 +101,7 @@ class Body
 	*/
 	public void update()
 	{
+		//System.out.println("My velocity is " + velocity.getXComp() + " : " + velocity.getYComp());
 		calcAcceleration();
 		calcVelocity();
 		calcPosition();
@@ -109,5 +110,42 @@ class Body
 	{
 		//put in display code here
 		System.out.println("X: " + posX + " Y: " + posY);
+	}
+	
+
+	
+	/**
+	 * Calling this increases the downward velocity
+	 */
+	public void downButton() 
+	{
+		velocity = velocity.specialAddition(new Vector(0,1));
+	}
+
+	
+	/**
+	 * Increases upward velocity
+	 */
+	public void upButton() 
+	{
+		System.out.println("Up button pressed!");
+		velocity = velocity.specialAddition(new Vector(0,-1));
+	}
+
+	/**
+	 * Increases leftward velocity
+	 */
+	public void leftButton() 
+	{
+		System.out.println("left button pressed!");
+		velocity = velocity.specialAddition(new Vector(-1,0));
+	}
+
+	/**
+	 * Increases rightward velocity
+	 */
+	public void rightButton() 
+	{
+		velocity = velocity.specialAddition(new Vector(1,0));
 	}
 }

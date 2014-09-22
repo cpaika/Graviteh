@@ -5,7 +5,7 @@ import java.lang.Math;
 class Physics
 {
 	//This is the constant that determines how powerful the force of gravity is, the higher it is the more powerful.
-	public static final double gravConst = 1; 
+	public static final double gravConst = 2; 
 	private Physics()
 	{
 		//This class can never be implemented

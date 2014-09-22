@@ -23,13 +23,14 @@ public class GameEngine extends JPanel
 	 */
 	private GameEngine()
 	{
-		disp = Display.initialize(WIDTH, HEIGHT); 
+		disp = Display.initialize(WIDTH, HEIGHT);
 		theGame = Universe.getInstance();
 		sk= new Skeleton(this, WIDTH, HEIGHT);
 		time = new Timer(FRAMERATE);
 		control = new ControlListener(theGame.getPlayer());
 		mouseControl = new UserMouse();
 		sk.addMouseListener(mouseControl);
+		sk.addMouseWheelListener(mouseControl);
 		sk.addKeyListener(control);
 		setDoubleBuffered(true);
 	}

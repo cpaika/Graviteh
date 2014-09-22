@@ -2,7 +2,8 @@ package Gravity;
 class Body implements Controllable
 {
 	//Center of the body object
-	int posX, posY;
+	private final int GLOBAL_SPEED_LIMIT = 30;
+	double posX, posY;
 	int height, width = 0; //TODO:initialize these
 	protected Vector velocity;//velocity vector
 	protected Vector accel;//acceleration vector
@@ -56,11 +57,11 @@ class Body implements Controllable
 	}
 	public int getPosX()
 	{
-		return posX;
+		return (int) (posX + .5);
 	}
 	public int getPosY()
 	{
-		return posY;
+		return (int) (posY + .5);
 	}
 	public Vector getVelocity()
 	{
@@ -93,8 +94,15 @@ class Body implements Controllable
 	*/
 	public void calcVelocity()
 	{
-		velocity = velocity.addition(accel);
-		accel = new Vector(0,0);
+		if(velocity.addition(accel).getMagnitude() <= GLOBAL_SPEED_LIMIT)
+		{
+			velocity = velocity.addition(accel);
+			accel = new Vector(0,0);
+		}
+		else
+		{
+			//Here the objects speed should be maxed out TODO
+		}
 	}
 	/*
 	At First all the forces between all the bodies are calculated and summed.  Then the resultant force vector is turned into an acceleration vector.  

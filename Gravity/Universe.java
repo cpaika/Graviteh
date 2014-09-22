@@ -48,9 +48,7 @@ class Universe
 	}
 	public void calcGrav()
 	{
-		System.out.println("Calculating gravity for " + bodyCount + " Body objects");
 		ArrayList<Body> collection = new ArrayList<Body>(Arrays.asList(bodies));
-		System.out.println("collection size:" + collection.size());
 		while(collection.size() > 1)
 		{
 			Body a = collection.get(0);
@@ -81,8 +79,8 @@ class Universe
 	 */
 	public void generateTest()
 	{
-		addBody(new Planet(40,400,1,20,20));
-		addBody(new Planet(300,300,1000,20,20));
+		addBody(new Planet(40,400,1000,20,20));
+		addBody(new Planet(300,300,1,20,20));
 		//bodies[2] = new Planet(700,100,190,5,5);
 		//bodies[2] = new Planet(21,100,100,10,10);
 	}

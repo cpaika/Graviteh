@@ -12,12 +12,14 @@ public class Display
 	private Graphics g;
 	private Image offscreen;
 	private int width, height;
+	private double scale;
 	
 	/**
 	 * Takes in the width and height of the screen, need to be called before any other function call
 	 */
 	private Display(int width, int height)
 	{
+		scale = 2;
 		startX = startY = 0;
 		endX = width;
 		endY = height;
@@ -28,10 +30,10 @@ public class Display
 	//TODO: implement support for moving the screen
 	public void draw(int absX, int absY, int width, int height, Color color)//Fix sprite
 	{
-		if((((absX + width) > startX) && (absX < endX)) && (((absY + height) > startY) && (absY < endY)))//if the object about to be displayed is inside the screen
+		if(((((absX/scale) + (width/scale)) > (startX/scale)) && ((absX/scale) < endX*scale)) && ((((absY/scale) + (height/scale)) > (startY/scale)) && ((absY/scale) < (endY*scale))))//if the object about to be displayed is inside the screen
 		{
 			g.setColor(color);
-			g.fillOval(absX, absY, width, height);
+			g.fillOval((int)Math.round(absX/scale), (int)Math.round(absY/scale), (int)Math.round(width/scale), (int)Math.round(height/scale));
 		}
 	}
 	/*
@@ -86,5 +88,20 @@ public class Display
 	public void drawArrow(int originX, int originY, int destX, int destY)
 	{
 		g.drawLine(originX, originY, destX, destY);
+	}
+	/**
+	 * Zooms the screen in for positive numbers and out for negatives
+	 * @param scrollAmount
+	 */
+	public void scroll(int scrollAmount)
+	{
+		if(scrollAmount > 0)//zoom in
+		{
+			scale = scale/1.1;
+		}
+		else if(scrollAmount < 0)//zoom out
+		{
+			scale = scale*1.1;
+		}
 	}
 }

@@ -48,16 +48,18 @@ class Universe
 	}
 	public void calcGrav()
 	{
+		System.out.println("Calculating gravity for " + bodyCount + " Body objects");
 		ArrayList<Body> collection = new ArrayList<Body>(Arrays.asList(bodies));
+		System.out.println("collection size:" + collection.size());
 		while(collection.size() > 1)
 		{
 			Body a = collection.get(0);
 			collection.remove(0);
 			for(Body b : collection)
 			{
-				if(b == null)
+				if(b == null)//this is a hack TODO
 				{
-					return;
+					break;
 				}
 				if(a.checkCollision(b.getCollisionBox()))
 				{
@@ -79,8 +81,8 @@ class Universe
 	 */
 	public void generateTest()
 	{
-		addBody(new Planet(40,100,50,20,20));
-		addBody(new Planet(300,100,5000,20,20));
+		addBody(new Planet(40,400,1,20,20));
+		addBody(new Planet(300,300,1000,20,20));
 		//bodies[2] = new Planet(700,100,190,5,5);
 		//bodies[2] = new Planet(21,100,100,10,10);
 	}
@@ -104,5 +106,9 @@ class Universe
 		{
 			return false;
 		}
+	}
+	public Body returnLastAdded()
+	{
+		return bodies[bodyCount-1];
 	}
 }

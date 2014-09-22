@@ -9,6 +9,7 @@ class Body implements Controllable
 	Vector force;//force vector
 	int mass;
 	protected Display display;
+	CollisionBox collide;
 	
 	/**
 	Constructor, takes in the x position, y position, velocity vector, mass and reference to display singleton
@@ -43,8 +44,10 @@ class Body implements Controllable
 	
 	public void setUp()
 	{
+		collide = new CollisionBox(height/2); 
 		force = new Vector(0,0);
 		accel = new Vector(0,0);
+		collide.update(new Vector(getCenterX(), getCenterY()));
 	}
 	
 	public int getMass()
@@ -119,6 +122,7 @@ class Body implements Controllable
 		calcAcceleration();
 		calcVelocity();
 		calcPosition();
+		collide.update(new Vector(getCenterX(), getCenterY()));
 	}
 	public void draw()
 	{
@@ -142,7 +146,6 @@ class Body implements Controllable
 	 */
 	public void upButton() 
 	{
-		System.out.println("Up button pressed!");
 		velocity = velocity.addition(new Vector(0,-1));
 	}
 
@@ -151,7 +154,6 @@ class Body implements Controllable
 	 */
 	public void leftButton() 
 	{
-		System.out.println("left button pressed!");
 		velocity = velocity.addition(new Vector(-1,0));
 	}
 
@@ -161,5 +163,13 @@ class Body implements Controllable
 	public void rightButton() 
 	{
 		velocity = velocity.addition(new Vector(1,0));
+	}
+	public CollisionBox getCollisionBox()
+	{
+		return collide;
+	}
+	public boolean checkCollision(CollisionBox other)
+	{
+		return collide.checkCollision(other);
 	}
 }

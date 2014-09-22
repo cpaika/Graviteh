@@ -89,6 +89,15 @@ class Vector
 		return new Vector(-xComp,-yComp);
 	}
 	/**
+	 * 
+	 * @param a
+	 * @return Returns a new Vector which is the current vector with the input subtracted from it
+	 */
+	public Vector subtract(Vector a)
+	{
+		return new Vector(xComp-a.getXComp(), yComp - a.getYComp());
+	}
+	/**
 	 * Returns a string representation of the vector
 	 */
 	public String toString()

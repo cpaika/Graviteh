@@ -53,6 +53,10 @@ class Universe
 			collection.remove(0);
 			for(Body b : collection)
 			{
+				if(a.checkCollision(b.getCollisionBox()))
+				{
+					System.out.println("Collision occured");
+				}
 				Vector forceA = Physics.calcForce(a, b);
 				a.sumForce(forceA.getInverse());
 				b.sumForce(forceA);

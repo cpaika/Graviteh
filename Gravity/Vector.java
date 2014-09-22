@@ -14,28 +14,20 @@ class Vector
 		xComp = x;
 		yComp = y;
 	}
-	/*
-	Creates a component vector from the x and y distance as well as the force between these two body's
-	TODO:  Create a unit test
-	*/
-	public Vector(int x, int y, double force)
+	
+	/**
+	 * 
+	 * @param a
+	 * @return Return's a normalized version of Vector a
+	 */
+	public Vector normalize()
 	{
-		if(x==0)
-		{
-			xComp = 0;
-			yComp = force;
-			return;
-		}
-		else if(y==0)
-		{
-			xComp = force;
-			yComp = 0;
-			return;
-		}
-		double angle = Math.atan(y/x);
-		xComp = (int) ((Math.cos(angle)*force)+.5);
-		yComp = (int) ((Math.sin(angle)*force)+.5);
-		return;
+		return this.divideBy(Math.sqrt(xComp*xComp + yComp*yComp));
+	}
+	
+	public double getMagnitude()
+	{
+		return Math.sqrt((xComp*xComp) + (yComp*yComp));
 	}
 
 	public double getXComp()
@@ -55,6 +47,11 @@ class Vector
 	{
 		return new Vector(xComp/scalar, yComp/scalar);
 	}
+	
+	public Vector divideBy(double scalar)
+	{
+		return new Vector(xComp/scalar, yComp/scalar);
+	}
 
 	/*
 	Returns a Vector that is multiplied by the scalar passed in.
@@ -63,6 +60,12 @@ class Vector
 	{
 		return new Vector(xComp*scalar, yComp*scalar);
 	}
+	
+	public Vector multiplyBy(double scalar)
+	{
+		return new Vector(xComp*scalar, yComp*scalar);
+	}
+	
 	/*
 	Adds two vectors by adding their components, returns the sum vector.  Does not change the state of this vector.
 	*/
@@ -98,6 +101,6 @@ class Vector
 	 */
 	public void drawToScreen(int x, int y)
 	{
-		Display.getDisplay().drawArrow(x, y, (int) (xComp+.5 + x), (int) (yComp+.5 + y));
+		Display.getDisplay().drawArrow(x, y, (int) (xComp*10+.5 + x), (int) (yComp*10+.5 + y));
 	}
 }

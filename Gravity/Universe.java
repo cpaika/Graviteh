@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 class Universe
 {
-	private static final int UNIVERSE_SIZE = 1;
+	private static final int UNIVERSE_SIZE = 2;
 	private static Universe instance = null;
 	Body[] bodies;
 	private Universe()//private to ensure singleton
@@ -54,8 +54,8 @@ class Universe
 			for(Body b : collection)
 			{
 				Vector forceA = Physics.calcForce(a, b);
-				a.sumForce(forceA);
-				b.sumForce(forceA.getInverse());
+				a.sumForce(forceA.getInverse());
+				b.sumForce(forceA);
 			}
 		}
 	}
@@ -69,8 +69,8 @@ class Universe
 	 */
 	public void generateTest()
 	{
-		bodies[0] = new Planet(500,150,1000,5,5);
-		//bodies[1] = new Planet(300,100,190,5,5);
+		bodies[0] = new Planet(40,100,1000,20,20);
+		bodies[1] = new Planet(300,100,50,20,20);
 		//bodies[2] = new Planet(700,100,190,5,5);
 		//bodies[2] = new Planet(21,100,100,10,10);
 	}

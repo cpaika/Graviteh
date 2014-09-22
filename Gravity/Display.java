@@ -31,7 +31,7 @@ public class Display
 		if((((absX + width) > startX) && (absX < endX)) && (((absY + height) > startY) && (absY < endY)))//if the object about to be displayed is inside the screen
 		{
 			g.setColor(color);
-			g.drawOval(absX, absY, width, height);
+			g.fillOval(absX, absY, width, height);
 		}
 	}
 	/*

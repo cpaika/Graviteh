@@ -63,6 +63,20 @@ class Body implements Controllable
 	{
 		return velocity;
 	}
+	/**
+	 * @return Returns the exact center x component of the Body
+	 */
+	public int getCenterX()
+	{
+		return (int)(posX + height*.5);
+	}
+	/**
+	 * @return Returns the exact center y component of the Body
+	 */
+	public int getCenterY()
+	{
+		return (int)(posY + width*.5);
+	}
 	/*
 	Calculates a new position based on velocity.
 	*/
@@ -119,7 +133,7 @@ class Body implements Controllable
 	 */
 	public void downButton() 
 	{
-		velocity = velocity.specialAddition(new Vector(0,1));
+		velocity = velocity.addition(new Vector(0,1));
 	}
 
 	
@@ -129,7 +143,7 @@ class Body implements Controllable
 	public void upButton() 
 	{
 		System.out.println("Up button pressed!");
-		velocity = velocity.specialAddition(new Vector(0,-1));
+		velocity = velocity.addition(new Vector(0,-1));
 	}
 
 	/**
@@ -138,7 +152,7 @@ class Body implements Controllable
 	public void leftButton() 
 	{
 		System.out.println("left button pressed!");
-		velocity = velocity.specialAddition(new Vector(-1,0));
+		velocity = velocity.addition(new Vector(-1,0));
 	}
 
 	/**
@@ -146,6 +160,6 @@ class Body implements Controllable
 	 */
 	public void rightButton() 
 	{
-		velocity = velocity.specialAddition(new Vector(1,0));
+		velocity = velocity.addition(new Vector(1,0));
 	}
 }

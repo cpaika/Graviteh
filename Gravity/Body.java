@@ -16,8 +16,8 @@ class Body implements Controllable
 	*/
 	public Body(int x, int y, Vector v, int m, int h, int w)
 	{
-		posX = x;
-		posY = y;
+		posX = x-(w/2);
+		posY = y-(h/2);
 		velocity = v;
 		mass = m;
 		height = h;

@@ -7,15 +7,16 @@ import javax.swing.JPanel;
 
 public class GameEngine extends JPanel
 {
-	private final static int FRAMERATE = 30;
-	private final static int WIDTH = 600;
-	private final static int HEIGHT = 560;
+	private final static int FRAMERATE = 60;
+	private final static int WIDTH = 1000;
+	private final static int HEIGHT = 1000;
 	Skeleton sk;
 	boolean playing = true;
 	Universe theGame;
 	Timer time;
 	Display disp;
 	ControlListener control;
+	UserMouse mouseControl;
 	
 	/*
 	 * Private ensures that Engine will remain singleton
@@ -27,6 +28,8 @@ public class GameEngine extends JPanel
 		sk= new Skeleton(this, WIDTH, HEIGHT);
 		time = new Timer(FRAMERATE);
 		control = new ControlListener(theGame.getPlayer());
+		mouseControl = new UserMouse();
+		sk.addMouseListener(mouseControl);
 		sk.addKeyListener(control);
 		setDoubleBuffered(true);
 	}

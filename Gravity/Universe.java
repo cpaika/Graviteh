@@ -4,12 +4,14 @@ import java.util.Arrays;
 
 class Universe
 {
-	private static final int UNIVERSE_SIZE = 2;
+	private static final int UNIVERSE_SIZE = 300;
 	private static Universe instance = null;
 	Body[] bodies;
+	private int bodyCount;
 	private Universe()//private to ensure singleton
 	{
 		bodies = new Body[UNIVERSE_SIZE];
+		bodyCount = 0;
 		generateTest();
 	}
 	
@@ -29,7 +31,7 @@ class Universe
 	*/
 	public void refresh()
 	{
-		for(int i = 0; i <= bodies.length - 1; i++)//check boundary conditions
+		for(int i = 0; i <= bodyCount - 1 ; i++)//check boundary conditions
 		{
 			bodies[i].update();
 		}
@@ -39,7 +41,7 @@ class Universe
 	*/
 	public void draw()
 	{
-		for(int i = 0; i <= bodies.length - 1; i++)//check boundary conditions
+		for(int i = 0; i <= bodyCount - 1; i++)//check boundary conditions
 		{
 			bodies[i].draw();
 		}
@@ -53,6 +55,10 @@ class Universe
 			collection.remove(0);
 			for(Body b : collection)
 			{
+				if(b == null)
+				{
+					return;
+				}
 				if(a.checkCollision(b.getCollisionBox()))
 				{
 					System.out.println("Collision occured");
@@ -73,8 +79,8 @@ class Universe
 	 */
 	public void generateTest()
 	{
-		bodies[0] = new Planet(40,100,1000,20,20);
-		bodies[1] = new Planet(300,100,50,20,20);
+		addBody(new Planet(40,100,50,20,20));
+		addBody(new Planet(300,100,5000,20,20));
 		//bodies[2] = new Planet(700,100,190,5,5);
 		//bodies[2] = new Planet(21,100,100,10,10);
 	}
@@ -84,5 +90,19 @@ class Universe
 	public Body getPlayer()
 	{
 		return bodies[0];
+	}
+	
+	public boolean addBody(Body b)
+	{
+		if(bodyCount < this.UNIVERSE_SIZE - 1)
+		{
+			bodies[bodyCount] = b;
+			bodyCount++;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }

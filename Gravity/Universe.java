@@ -13,6 +13,7 @@ class Universe
 		bodies = new Body[UNIVERSE_SIZE];
 		bodyCount = 0;
 		generateTest();
+		//generateSmallTest();
 	}
 	
 	/**
@@ -79,13 +80,22 @@ class Universe
 	 */
 	public void generateTest()
 	{
-		addBody(new Planet(900,500, new Vector(0,1),1,20,20));
-		addBody(new Planet(800,500,new Vector(0,2),1,20,20));
-		addBody(new Planet(700,500,new Vector(0,2.5),1,20,20));
-		addBody(new Planet(600,500,new Vector(0,3),1,20,20));
+		int smallBodies = 4;
+		addBody(new Planet(900,500,1,20,20));
+		addBody(new Planet(800,500,1,20,20));
+		addBody(new Planet(700,500,1,20,20));
+		addBody(new Planet(600,500,1,20,20));
+		Body center = addBody(new Planet(500,500,1000,20,20));
+		for(int i = 0; i < smallBodies; i++)
+		{
+			bodies[i].fixIntoOrbit(center);
+		}
+	}
+	public void generateSmallTest()
+	{
+		addBody(new Planet(600,500,1,20,20));
 		addBody(new Planet(500,500,1000,20,20));
-		//bodies[2] = new Planet(700,100,190,5,5);
-		//bodies[2] = new Planet(21,100,100,10,10);
+		bodies[0].fixIntoOrbit(bodies[1]);
 	}
 	/**
 	 * @return Returns a reference to the current player controlled body
@@ -95,17 +105,17 @@ class Universe
 		return bodies[0];
 	}
 	
-	public boolean addBody(Body b)
+	public Body addBody(Body b)
 	{
 		if(bodyCount < this.UNIVERSE_SIZE - 1)
 		{
 			bodies[bodyCount] = b;
 			bodyCount++;
-			return true;
+			return b;
 		}
 		else
 		{
-			return false;
+			return null;
 		}
 	}
 	public Body returnLastAdded()

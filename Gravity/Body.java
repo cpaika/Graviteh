@@ -81,6 +81,10 @@ class Body implements Controllable
 	{
 		return (int)(posY + width*.5);
 	}
+	public Vector getCenterVector()
+	{
+		return new Vector(this.getCenterX(), this.getCenterY());
+	}
 	/*
 	Calculates a new position based on velocity.
 	*/
@@ -179,5 +183,22 @@ class Body implements Controllable
 	public boolean checkCollision(CollisionBox other)
 	{
 		return collide.checkCollision(other);
+	}
+	
+	/**
+	 * Fixes the Body's orbit into a circular one around the passed in Body.  Only works when the orbiting body is significantly smaller in mass than the central body.
+	 * @param center The Body this body is going to orbit around
+	 */
+	public void fixIntoOrbit(Body center)
+	{
+		System.out.println("Fixing a body into orbit!");
+		int mass = center.getMass();
+		Vector distance = this.getCenterVector().subtract(center.getCenterVector());
+		double rawVelocity = Math.sqrt((Physics.gravConst*mass)/distance.getMagnitude());
+		System.out.println("Raw velocity is: " + rawVelocity);
+		velocity = new Vector(Physics.calcForce(this, center).normalize().getYComp(), Physics.calcForce(this, center).normalize().getXComp());//dirty way of finding normal vector
+		System.out.println("Velocity vector after normalization: " + velocity);
+		velocity = velocity.multiplyBy(rawVelocity);
+		return;
 	}
 }

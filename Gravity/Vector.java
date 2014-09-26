@@ -45,7 +45,15 @@ class Vector
 	*/
 	public Vector divideBy(int scalar)
 	{
-		return new Vector(xComp/scalar, yComp/scalar);
+		if(scalar == 0)
+		{
+			//TODO throw error here
+			return null;
+		}
+		else
+		{
+			return new Vector(xComp/scalar, yComp/scalar);
+		}
 	}
 	
 	public Vector divideBy(double scalar)

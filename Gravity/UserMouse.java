@@ -23,7 +23,7 @@ public class UserMouse implements MouseListener, MouseWheelListener
 		Display d = Display.getDisplay();
 		Vector location = d.fromScreen(e.getX(), e.getY());
 		Planet temp = new Planet((int)Math.round(location.getXComp()), (int)Math.round(location.getYComp()), 100, 20, 20);
-		if(!Universe.getInstance().addBody(temp))
+		if(Universe.getInstance().addBody(temp) == null)
 		{
 			System.out.println("Problem adding a planet.");
 		}

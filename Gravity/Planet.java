@@ -11,6 +11,11 @@ public class Planet extends Body
 		super(x,y,m,h,w);
 		generateColor();
 	}
+	public Planet(int x, int y, Vector v, int m, int h, int w)
+	{
+		super(x,y,v,m,h,w);
+		generateColor();
+	}
 	public void generateColor()
 	{
 		c = new Color((int)(Math.random()*255),(int) (Math.random()*255), (int) (Math.random()*255));

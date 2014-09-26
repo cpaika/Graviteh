@@ -19,7 +19,7 @@ public class Display
 	 */
 	private Display(int width, int height)
 	{
-		scale = 2;
+		scale = 1;
 		startX = startY = 0;
 		endX = width;
 		endY = height;
@@ -103,5 +103,13 @@ public class Display
 		{
 			scale = scale*1.1;
 		}
+	}
+	
+	public Vector fromScreen(int x, int y)
+	{
+		int xLoc, yLoc = 0;
+		xLoc = (int) Math.round(x*scale - width);
+		yLoc = (int) Math.round(y*scale - height);
+		return new Vector(xLoc,yLoc);
 	}
 }

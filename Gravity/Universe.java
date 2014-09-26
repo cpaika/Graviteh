@@ -79,8 +79,11 @@ class Universe
 	 */
 	public void generateTest()
 	{
-		addBody(new Planet(40,400,1000,20,20));
-		addBody(new Planet(300,300,1,20,20));
+		addBody(new Planet(900,500, new Vector(0,1),1,20,20));
+		addBody(new Planet(800,500,new Vector(0,2),1,20,20));
+		addBody(new Planet(700,500,new Vector(0,2.5),1,20,20));
+		addBody(new Planet(600,500,new Vector(0,3),1,20,20));
+		addBody(new Planet(500,500,1000,20,20));
 		//bodies[2] = new Planet(700,100,190,5,5);
 		//bodies[2] = new Planet(21,100,100,10,10);
 	}

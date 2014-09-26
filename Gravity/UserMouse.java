@@ -20,7 +20,9 @@ public class UserMouse implements MouseListener, MouseWheelListener
 	public void mouseClicked(MouseEvent e) 
 	{
 		//Makes a standard planet where the user clicked
-		Planet temp = new Planet(e.getX(), e.getY(), 100, 20, 20);
+		Display d = Display.getDisplay();
+		Vector location = d.fromScreen(e.getX(), e.getY());
+		Planet temp = new Planet((int)Math.round(location.getXComp()), (int)Math.round(location.getYComp()), 100, 20, 20);
 		if(!Universe.getInstance().addBody(temp))
 		{
 			System.out.println("Problem adding a planet.");

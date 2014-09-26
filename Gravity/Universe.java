@@ -27,18 +27,11 @@ class Universe
 	/**
 		Updates the acceleration and velocity and position of all the bodies in the universe.
 	*/
-	public void refresh()
+	public void refresh()//TODO check how objects remove themselves
 	{
 		for(Body b: bodies)
 		{
-			
-		}
-		for(int i = 0; i <= bodyCount - 1 ; i++)//check boundary conditions
-		{
-			if(bodies[i] != null)
-			{
-				bodies[i].update();
-			}
+			b.update();
 		}
 	}
 	/**
@@ -46,12 +39,9 @@ class Universe
 	*/
 	public void draw()
 	{
-		for(int i = 0; i <= bodyCount - 1; i++)//check boundary conditions
+		for(Body b: bodies)
 		{
-			if(bodies[i] != null)
-			{
-				bodies[i].draw();
-			}
+			b.draw();
 		}
 	}
 	public void calcGrav()
@@ -125,20 +115,23 @@ class Universe
 		addBody(new Planet(500,500,1000,20,20));
 		bodies[0].fixIntoOrbit(bodies[1]);
 	}
-	/**
-	 * @return Returns a reference to the current player controlled body
+	/** Returns a reference to the current player controlled body
+	 * @return Returns the player controlled Body if it exists.  If there is no current Player controlled Body this returns null.
 	 */
 	public Body getPlayer()
 	{
-		return bodies[0];
+		return bodies.getPlayer();
 	}
 	
+	/**
+	 * Adds a Body to the Universe.  This Body will then be drawn to screen, affected by forces, etc.
+	 * @param b The Body to be added to the Universe.
+	 * @return Will return the Body if successfully added.  Will return null if there was a problem adding the Body to the Universe.
+	 */
 	public Body addBody(Body b)
 	{
-		if(bodyCount < this.UNIVERSE_SIZE - 1)
+		if(bodies.addBody(b))
 		{
-			bodies[bodyCount] = b;
-			bodyCount++;
 			return b;
 		}
 		else
@@ -146,22 +139,21 @@ class Universe
 			return null;
 		}
 	}
-	public Body returnLastAdded()
-	{
-		return bodies[bodyCount-1];
-	}
 	
+	/**
+	 * Removes the Body from the Universe.  No longer displays on screen, affected by forces, or affects any other Body.  
+	 * @param a Body to be removed
+	 * @return If the Body successfully was removed it returns the Body.  If the Body was not successfully removed it returns null.
+	 */
 	public Body remove(Body a)
 	{
-		for(int i = 0;  i < bodies.length; i++)
+		if(bodies.removeBody(a))
 		{
-			if((bodies[i] != null) && (bodies[i].equals(a)))
-			{
-				Body eject = bodies[i];
-				bodies[i] = null;
-				return eject;
-			}
+			return a;
 		}
-		return null; //if nothing is found
+		else//couldn't remove body
+		{
+			return null;
+		}
 	}
 }

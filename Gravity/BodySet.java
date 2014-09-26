@@ -8,12 +8,14 @@ import java.util.Iterator;
  * @author Christopher Paika
  *
  */
-public class BodySet implements Iterable
+public class BodySet implements Iterable<Body>
 {
 	private ArrayList<Body> bodies;
+	private Body player;
 	public BodySet()
 	{
 		bodies = new ArrayList<Body>();
+		player = null;
 	}
 	
 	/**
@@ -23,6 +25,10 @@ public class BodySet implements Iterable
 	 */
 	public boolean addBody(Body a)
 	{
+		if(player == null)
+		{
+			player = a;
+		}
 		bodies.add(a);
 		return true;
 	}
@@ -33,14 +39,27 @@ public class BodySet implements Iterable
 	 */
 	public boolean removeBody(Body r)
 	{
+		if(r == player)
+		{
+			player = null;
+		}
 		return bodies.remove(r);
 	}
 
 	/**
 	 * Returns an iterator of the BodySet
 	 */
-	public Iterator iterator() 
+	public Iterator<Body> iterator() 
 	{
-		return (Iterator<Body>)bodies.iterator();
+		return bodies.iterator();
+	}
+
+	/**
+	 * Returns the current player controlled Body 
+	 * @return Returns the player controlled Body if it exists.  If there is no current Player controlled Body this returns null.
+	 */
+	public Body getPlayer() 
+	{
+		return player;
 	}
 }

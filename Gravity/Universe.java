@@ -4,20 +4,17 @@ import java.util.Arrays;
 
 class Universe
 {
-	private static final int UNIVERSE_SIZE = 300;
 	private static Universe instance = null;
-	Body[] bodies;
-	private int bodyCount;
+	BodySet bodies = null;
 	private Universe()//private to ensure singleton
 	{
-		bodies = new Body[UNIVERSE_SIZE];
-		bodyCount = 0;
+		bodies = new BodySet();
 		generateTest();
 		//generateSmallTest();
 	}
 	
 	/**
-	Returns the singleton instance of the Universe
+		Returns the singleton instance of the Universe
 	*/
 	public static Universe getInstance()
 	{
@@ -28,10 +25,14 @@ class Universe
 		return instance;
 	}
 	/**
-	Updates the acceleration and velocity and position of all the bodies in the universe.
+		Updates the acceleration and velocity and position of all the bodies in the universe.
 	*/
 	public void refresh()
 	{
+		for(Body b: bodies)
+		{
+			
+		}
 		for(int i = 0; i <= bodyCount - 1 ; i++)//check boundary conditions
 		{
 			if(bodies[i] != null)

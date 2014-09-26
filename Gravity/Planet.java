@@ -82,11 +82,13 @@ public class Planet extends Body
 	 */
 	protected void collisionDestroy()
 	{
+		
 		Body ejected = Universe.getInstance().remove(this);
 		if(ejected == null)
 		{
 			System.out.println("ERROR removing this planet from the array");
 		}
 		return;
+		
 	}
 }

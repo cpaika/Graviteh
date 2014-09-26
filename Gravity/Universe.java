@@ -1,14 +1,16 @@
 package Gravity;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 
 class Universe
 {
 	private static Universe instance = null;
 	BodySet bodies = null;
+	ArrayList<Body> collisions;
 	private Universe()//private to ensure singleton
 	{
 		bodies = new BodySet();
+		collisions = new ArrayList<Body>();
 		generateTest();
 		//generateSmallTest();
 	}
@@ -44,7 +46,7 @@ class Universe
 			b.draw();
 		}
 	}
-	public void calcGrav()
+	private void calcGravAndCollisions()
 	{
 		ArrayList<Body> finished = new ArrayList<Body>();
 		for(Body a: bodies)
@@ -61,6 +63,11 @@ class Universe
 				b.sumForce(forceA);
 			}
 		}
+		while(collisions.size() > 0)//Empties the collision event stack
+		{
+			Body c = collisions.remove(0);
+			c.collisionOccurred();
+		}
 	}
 	/**
 	 * Called on two Body objects when a collision occurs between them.  Decides what to do based on both Body's state
@@ -72,21 +79,21 @@ class Universe
 		System.out.println("Collision occured");
 		if(a.getMass() > b.getMass())
 		{
-			b.collisionOccurred();
+			addToCollisions(b);
 		}
 		else if (a.getMass() < b.getMass())
 		{
-			a.collisionOccurred();
+			addToCollisions(a);
 		}
 		else//they are equal sizes
 		{
-			a.collisionOccurred();
-			b.collisionOccurred();
+			addToCollisions(a);
+			addToCollisions(b);
 		}
 	}
 	public void update()
 	{
-		calcGrav();
+		calcGravAndCollisions();
 		refresh();
 	}
 	/**
@@ -162,6 +169,18 @@ class Universe
 		else//couldn't remove body
 		{
 			return null;
+		}
+	}
+	
+	/**
+	 * Adds a Body to the list of bodies that need to be notified of a collision
+	 * @param a The body that has to be notified of a collision
+	 */
+	private void addToCollisions(Body a)
+	{
+		if(!collisions.contains(a))
+		{
+			collisions.add(a);
 		}
 	}
 }

@@ -9,8 +9,8 @@ class Universe
 	private Universe()//private to ensure singleton
 	{
 		bodies = new BodySet();
-		//generateTest();
-		generateSmallTest();
+		generateTest();
+		//generateSmallTest();
 	}
 	
 	/**
@@ -49,6 +49,7 @@ class Universe
 		ArrayList<Body> finished = new ArrayList<Body>();
 		for(Body a: bodies)
 		{
+			finished.add(a);
 			for(Body b: bodies.subtractCollection(finished))
 			{
 				if(a.checkCollision(b.getCollisionBox()))//check for collisions among the two
@@ -59,7 +60,6 @@ class Universe
 				a.sumForce(forceA.getInverse());
 				b.sumForce(forceA);
 			}
-			finished.add(a);
 		}
 	}
 	/**

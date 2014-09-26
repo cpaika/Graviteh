@@ -9,8 +9,8 @@ class Universe
 	private Universe()//private to ensure singleton
 	{
 		bodies = new BodySet();
-		generateTest();
-		//generateSmallTest();
+		//generateTest();
+		generateSmallTest();
 	}
 	
 	/**
@@ -46,43 +46,42 @@ class Universe
 	}
 	public void calcGrav()
 	{
-		ArrayList<Body> collection = new ArrayList<Body>(Arrays.asList(bodies));
-		while(collection.size() > 1)
+		ArrayList<Body> finished = new ArrayList<Body>();
+		for(Body a: bodies)
 		{
-			Body a = collection.get(0);
-			collection.remove(0);
-			while(a == null && collection.size() > 1)//TODO THIS IS A HACK
+			for(Body b: bodies.subtractCollection(finished))
 			{
-				a = collection.get(0);
-				collection.remove(0);
-			}
-			for(Body b : collection)
-			{
-				if(b == null)//this is a hack TODO
+				if(a.checkCollision(b.getCollisionBox()))//check for collisions among the two
 				{
-					break;
-				}
-				if(a.checkCollision(b.getCollisionBox()))
-				{
-					System.out.println("Collision occured");
-					if(a.getMass() > b.getMass())
-					{
-						b.collisionOccurred();
-					}
-					else if (a.getMass() < b.getMass())
-					{
-						a.collisionOccurred();
-					}
-					else//they are equal sizes
-					{
-						a.collisionOccurred();
-						b.collisionOccurred();
-					}
+					collisionOccurred(a, b);
 				}
 				Vector forceA = Physics.calcForce(a, b);
 				a.sumForce(forceA.getInverse());
 				b.sumForce(forceA);
 			}
+			finished.add(a);
+		}
+	}
+	/**
+	 * Called on two Body objects when a collision occurs between them.  Decides what to do based on both Body's state
+	 * @param a First Body that is colliding	
+	 * @param b Second Body that is colliding
+	 */
+	private void collisionOccurred(Body a, Body b)
+	{
+		System.out.println("Collision occured");
+		if(a.getMass() > b.getMass())
+		{
+			b.collisionOccurred();
+		}
+		else if (a.getMass() < b.getMass())
+		{
+			a.collisionOccurred();
+		}
+		else//they are equal sizes
+		{
+			a.collisionOccurred();
+			b.collisionOccurred();
 		}
 	}
 	public void update()
@@ -95,25 +94,34 @@ class Universe
 	 */
 	public void generateTest()
 	{
-		int smallBodies = 5;
-		addBody(new Planet(900,500,5,20,20));
-		addBody(new Planet(800,500,5,20,20));
-		addBody(new Planet(700,500,5,20,20));
-		addBody(new Planet(600,500,5,20,20));
-		addBody(new Planet(400,500,5,20,20));
-		//addBody(new Planet(500,600,1,20,20));
-		//addBody(new Planet(500,400,1,20,20));
 		Body center = addBody(new Planet(500,500,1000,20,20));
-		for(int i = 0; i < smallBodies; i++)
-		{
-			bodies[i].fixIntoOrbit(center);
-		}
+		
+		Planet p1 = new Planet(900,500,5,20,20);
+		p1.fixIntoOrbit(center);
+		addBody(p1);
+		
+		Planet p2 = new Planet(800,500,5,20,20);
+		p2.fixIntoOrbit(center);
+		addBody(p2);
+		
+		Planet p3 = new Planet(700,500,5,20,20);
+		p3.fixIntoOrbit(center);
+		addBody(p3);
+		
+		Planet p4 = new Planet(600,500,5,20,20);
+		p4.fixIntoOrbit(center);
+		addBody(p4);
+		
+		Planet p5 = new Planet(400,500,5,20,20);
+		p5.fixIntoOrbit(center);
+		addBody(p5);
 	}
 	public void generateSmallTest()
 	{
-		addBody(new Planet(600,500,1,20,20));
-		addBody(new Planet(500,500,1000,20,20));
-		bodies[0].fixIntoOrbit(bodies[1]);
+		Body center = addBody(new Planet(500,500,1000,20,20));
+		Planet p = new Planet(600,500,1,20,20);
+		p.fixIntoOrbit(center);
+		addBody(p);
 	}
 	/** Returns a reference to the current player controlled body
 	 * @return Returns the player controlled Body if it exists.  If there is no current Player controlled Body this returns null.

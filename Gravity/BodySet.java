@@ -1,7 +1,9 @@
 package Gravity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+
 /**
  * This class is a wrapper for an ArrayList, used as the Set of Body objects in the Universe.  Helps manipulate the ArrayList
  * and prevent any corruption/errors from affecting the Universe state.
@@ -61,5 +63,16 @@ public class BodySet implements Iterable<Body>
 	public Body getPlayer() 
 	{
 		return player;
+	}
+
+	/**  Returns this Set of Objects with collisions between this and the parameter removed
+	 * @param The Set to subtract from this set of Body's
+	 * @return Returns the set of Body objects in this object with collisions between this and the removes set removed.
+	 */
+	public Collection<Body> subtractCollection(Collection<Body> removes)
+	{
+		ArrayList<Body> newBodies = (ArrayList<Body>) bodies.clone();
+		newBodies.removeAll(removes);
+		return newBodies;
 	}
 }

@@ -80,11 +80,14 @@ class Universe
 	 */
 	public void generateTest()
 	{
-		int smallBodies = 4;
+		int smallBodies = 5;
 		addBody(new Planet(900,500,1,20,20));
 		addBody(new Planet(800,500,1,20,20));
 		addBody(new Planet(700,500,1,20,20));
 		addBody(new Planet(600,500,1,20,20));
+		addBody(new Planet(400,500,1,20,20));
+		//addBody(new Planet(500,600,1,20,20));
+		//addBody(new Planet(500,400,1,20,20));
 		Body center = addBody(new Planet(500,500,1000,20,20));
 		for(int i = 0; i < smallBodies; i++)
 		{

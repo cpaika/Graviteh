@@ -3,7 +3,7 @@ class Body implements Controllable
 {
 	//Center of the body object
 	private final int GLOBAL_SPEED_LIMIT = 30;
-	double posX, posY;
+	Vector centerLocation;
 	int height, width = 0; //TODO:initialize these
 	protected Vector velocity;//velocity vector
 	protected Vector accel;//acceleration vector
@@ -17,8 +17,7 @@ class Body implements Controllable
 	*/
 	public Body(int x, int y, Vector v, int m, int h, int w)
 	{
-		posX = x-(w/2);
-		posY = y-(h/2);
+		centerLocation = new Vector(x-(w/2), y-(h/2));
 		velocity = v;
 		mass = m;
 		height = h;
@@ -33,8 +32,7 @@ class Body implements Controllable
 	*/
 	public Body(int x, int y, int m, int h, int w)
 	{
-		posX = x;
-		posY = y;
+		centerLocation = new Vector(x-(w/2), y-(h/2));
 		velocity = new Vector(0,0);
 		mass = m;
 		height = h;
@@ -57,11 +55,11 @@ class Body implements Controllable
 	}
 	public int getPosX()
 	{
-		return (int) (posX + .5);
+		return (int) ((centerLocation.getXComp()+(width/2)) + .5);
 	}
 	public int getPosY()
 	{
-		return (int) (posY + .5);
+		return (int) ((centerLocation.getYComp()+(height/2)) + .5);
 	}
 	public Vector getVelocity()
 	{
@@ -72,26 +70,25 @@ class Body implements Controllable
 	 */
 	public int getCenterX()
 	{
-		return (int)(posX + height*.5);
+		return (int) (centerLocation.getXComp() + .5);
 	}
 	/**
 	 * @return Returns the exact center y component of the Body
 	 */
 	public int getCenterY()
 	{
-		return (int)(posY + width*.5);
+		return (int) (centerLocation.getYComp() + .5);
 	}
 	public Vector getCenterVector()
 	{
-		return new Vector(this.getCenterX(), this.getCenterY());
+		return centerLocation.copy();
 	}
 	/*
 	Calculates a new position based on velocity.
 	*/
 	public void calcPosition()
 	{
-		posX = (int)(posX + this.velocity.getXComp() + .5);//.5 rounds to the nearest int
-		posY = (int)(posY + this.velocity.getYComp() + .5);
+		centerLocation = centerLocation.addition(velocity);
 	}
 	/*
 	Calculates velocity vector.  Clears the acceleration vector when finished
@@ -139,7 +136,7 @@ class Body implements Controllable
 	public void draw()
 	{
 		//put in display code here
-		System.out.println("X: " + posX + " Y: " + posY);
+		System.out.println("X: " + centerLocation.getXComp() + " Y: " + centerLocation.getYComp());
 	}
 	
 

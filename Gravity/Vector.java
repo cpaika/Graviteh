@@ -4,7 +4,6 @@ import java.lang.Math;
 
 class Vector
 {
-	private double magnitude;
 	//The X and Y component of this vector
 	private double xComp, yComp;
 
@@ -119,5 +118,13 @@ class Vector
 	public void drawToScreen(int x, int y)
 	{
 		Display.getDisplay().drawArrow(x, y, (int) (xComp*10+.5 + x), (int) (yComp*10+.5 + y));
+	}
+	/**
+	 * Returns an exact copy of this vector
+	 * @return Exact copy of the vector it is called on
+	 */
+	public Vector copy()
+	{
+		return new Vector(this.xComp, this.yComp);
 	}
 }

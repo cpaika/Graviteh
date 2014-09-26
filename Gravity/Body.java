@@ -1,6 +1,8 @@
 package Gravity;
-class Body implements Controllable
+abstract class Body implements Controllable
 {
+	protected boolean isDestroyable;
+	protected int safeTime = 0;
 	//Center of the body object
 	private final int GLOBAL_SPEED_LIMIT = 30;
 	Vector centerLocation;
@@ -22,7 +24,7 @@ class Body implements Controllable
 		mass = m;
 		height = h;
 		width = w;
-		display = null;
+		display = Display.getDisplay();
 		setUp();
 	}
 	
@@ -40,9 +42,23 @@ class Body implements Controllable
 		display = Display.getDisplay();
 		setUp();
 	}
+	public Body(Vector l,Vector v, int m, int h, int w)
+	{
+		centerLocation = l.copy();
+		velocity = v.copy();
+		mass = m;
+		height = h;
+		width = w;
+		display = Display.getDisplay();
+		setUp();
+	}
+	
+	public abstract void collisionOccurred();
+	protected abstract void collisionDestroy();
 	
 	public void setUp()
 	{
+		isDestroyable = true;
 		collide = new CollisionBox(height/2); 
 		force = new Vector(0,0);
 		accel = new Vector(0,0);
@@ -127,6 +143,14 @@ class Body implements Controllable
 	*/
 	public void update()
 	{
+		if(!isDestroyable)
+		{
+			safeTime--;
+			if(safeTime == 0)//body can now collide with other bodies
+			{
+				isDestroyable = true;
+			}
+		}
 		//System.out.println("My velocity is " + velocity.getXComp() + " : " + velocity.getYComp());
 		calcAcceleration();
 		calcVelocity();
@@ -188,14 +212,21 @@ class Body implements Controllable
 	 */
 	public void fixIntoOrbit(Body center)
 	{
-		System.out.println("Fixing a body into orbit!");
 		int mass = center.getMass();
 		Vector distance = this.getCenterVector().subtract(center.getCenterVector());
 		double rawVelocity = Math.sqrt((Physics.gravConst*mass)/distance.getMagnitude());
-		System.out.println("Raw velocity is: " + rawVelocity);
 		velocity = new Vector(Physics.calcForce(this, center).normalize().getYComp(), Physics.calcForce(this, center).normalize().getXComp());//dirty way of finding normal vector
-		System.out.println("Velocity vector after normalization: " + velocity);
 		velocity = velocity.multiplyBy(rawVelocity);
 		return;
 	}
+	/**
+	 * Sets the time that this Body is safe from having a collsiion against other Body's registering
+	 * @param Time that the object is safe from collisions.  TIme denoted in ticks, with 60 ticks to the second.
+	 */
+	public void setSafeTime(int t)
+	{
+		safeTime = t;
+		isDestroyable = false;
+	}
+	
 }

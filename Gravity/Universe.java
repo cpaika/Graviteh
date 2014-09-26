@@ -34,7 +34,10 @@ class Universe
 	{
 		for(int i = 0; i <= bodyCount - 1 ; i++)//check boundary conditions
 		{
-			bodies[i].update();
+			if(bodies[i] != null)
+			{
+				bodies[i].update();
+			}
 		}
 	}
 	/**
@@ -44,7 +47,10 @@ class Universe
 	{
 		for(int i = 0; i <= bodyCount - 1; i++)//check boundary conditions
 		{
-			bodies[i].draw();
+			if(bodies[i] != null)
+			{
+				bodies[i].draw();
+			}
 		}
 	}
 	public void calcGrav()
@@ -54,6 +60,11 @@ class Universe
 		{
 			Body a = collection.get(0);
 			collection.remove(0);
+			while(a == null && collection.size() > 1)//TODO THIS IS A HACK
+			{
+				a = collection.get(0);
+				collection.remove(0);
+			}
 			for(Body b : collection)
 			{
 				if(b == null)//this is a hack TODO
@@ -63,6 +74,19 @@ class Universe
 				if(a.checkCollision(b.getCollisionBox()))
 				{
 					System.out.println("Collision occured");
+					if(a.getMass() > b.getMass())
+					{
+						b.collisionOccurred();
+					}
+					else if (a.getMass() < b.getMass())
+					{
+						a.collisionOccurred();
+					}
+					else//they are equal sizes
+					{
+						a.collisionOccurred();
+						b.collisionOccurred();
+					}
 				}
 				Vector forceA = Physics.calcForce(a, b);
 				a.sumForce(forceA.getInverse());
@@ -81,11 +105,11 @@ class Universe
 	public void generateTest()
 	{
 		int smallBodies = 5;
-		addBody(new Planet(900,500,1,20,20));
-		addBody(new Planet(800,500,1,20,20));
-		addBody(new Planet(700,500,1,20,20));
-		addBody(new Planet(600,500,1,20,20));
-		addBody(new Planet(400,500,1,20,20));
+		addBody(new Planet(900,500,5,20,20));
+		addBody(new Planet(800,500,5,20,20));
+		addBody(new Planet(700,500,5,20,20));
+		addBody(new Planet(600,500,5,20,20));
+		addBody(new Planet(400,500,5,20,20));
 		//addBody(new Planet(500,600,1,20,20));
 		//addBody(new Planet(500,400,1,20,20));
 		Body center = addBody(new Planet(500,500,1000,20,20));
@@ -124,5 +148,19 @@ class Universe
 	public Body returnLastAdded()
 	{
 		return bodies[bodyCount-1];
+	}
+	
+	public Body remove(Body a)
+	{
+		for(int i = 0;  i < bodies.length; i++)
+		{
+			if((bodies[i] != null) && (bodies[i].equals(a)))
+			{
+				Body eject = bodies[i];
+				bodies[i] = null;
+				return eject;
+			}
+		}
+		return null; //if nothing is found
 	}
 }

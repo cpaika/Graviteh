@@ -108,8 +108,9 @@ public class Display
 	public Vector fromScreen(int x, int y)
 	{
 		int xLoc, yLoc = 0;
-		xLoc = (int) Math.round(x*scale - width);
-		yLoc = (int) Math.round(y*scale - height);
+		xLoc = (int) Math.round(x*scale);
+		yLoc = (int) Math.round(y*scale);
 		return new Vector(xLoc,yLoc);
+		//return new Vector(x,y);
 	}
 }

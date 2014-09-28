@@ -22,7 +22,7 @@ public class UserMouse implements MouseListener, MouseWheelListener
 		//Makes a standard planet where the user clicked
 		Display d = Display.getDisplay();
 		Vector location = d.fromScreen(e.getX(), e.getY());
-		Planet temp = new Planet((int)Math.ceil(location.getXComp()), (int)Math.ceil(location.getYComp()), 5, 20, 20);
+		Planet temp = new Planet((int)Math.ceil(location.getXComp()), (int)Math.ceil(location.getYComp()),20, 20, 20);
 		temp.fixIntoOrbit(Universe.getInstance().getCenterBody());
 		if(Universe.getInstance().addBody(temp) == null)
 		{

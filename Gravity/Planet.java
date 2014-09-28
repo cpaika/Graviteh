@@ -7,7 +7,7 @@ import java.awt.Color;
 public class Planet extends Body
 {
 	private final static double ATOMIC_SIZE = 1;
-	private final static int AMOUNT_SPLIT = 1;
+	private final static int AMOUNT_SPLIT = 5;
 	Color c;
 	public Planet(int x, int y, int m, int h, int w)
 	{
@@ -60,13 +60,13 @@ public class Planet extends Body
 				System.out.println("SPLITTING PLANET");
 				int newMass = (int) Math.ceil(this.mass/AMOUNT_SPLIT);
 				ArrayList<Planet> planets = new ArrayList<Planet>();
-				double angleStep = 90/AMOUNT_SPLIT;
+				double angleStep = 90/(AMOUNT_SPLIT-1);
 				double currentAngle = 45;
-				double mag = this.velocity.getMagnitude();
 				for(int i = 0; i < AMOUNT_SPLIT; i++)
 				{
 					System.out.println("Creating a planet");
 					Vector newVelocity = this.getVelocity();//TODO this is the hard part
+					newVelocity = newVelocity.rotate(currentAngle);
 					Planet p = new Planet(centerLocation, newVelocity, newMass, 10, 10);
 					p.setSafeTime(60);
 					Universe.getInstance().addBody(p);//TODO fix how height and width works

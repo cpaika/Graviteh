@@ -37,6 +37,29 @@ class Vector
 	{
 		return yComp;
 	}
+	
+	/**
+	 * Returns the angle between this vector and the unit vector (1,0)
+	 * @return An angle in radians
+	 */
+	public double getAngle()
+	{
+		double offset = 0;
+		if(this.getXComp() < 0 && this.getYComp() > 0)
+		{
+			offset = Math.PI/2;
+		}
+		if(this.getXComp() < 0 && this.getYComp() < 0)
+		{
+			offset = Math.PI;
+		}
+		if(this.getXComp() > 0 && this.getYComp() < 0)
+		{
+			offset = Math.PI*1.5;
+		}
+		double angle = Math.asin(this.getYComp());
+		return (angle + offset);
+	}
 
 	/*
 	Returns a Vector that is divided by the scalar passed in.
@@ -52,6 +75,21 @@ class Vector
 		{
 			return new Vector(xComp/scalar, yComp/scalar);
 		}
+	}
+	
+	/**
+	 * Returns a Vector object that is this current Vector rotated some degrees counter clockwise
+	 * @param angle  The angle of rotation, represented in radians
+	 * @return The rotated Vector
+	 */
+	public Vector rotate(double angle)
+	{
+		Vector working = this.normalize();
+		double currentAngle = working.getAngle();
+		angle += currentAngle;
+		working = new Vector(Math.cos(angle), Math.sin(angle));
+		working = working.multiplyBy(this.getMagnitude());
+		return working;
 	}
 	
 	public Vector divideBy(double scalar)

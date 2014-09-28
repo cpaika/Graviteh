@@ -7,7 +7,7 @@ import java.awt.Color;
 public class Planet extends Body
 {
 	private final static double ATOMIC_SIZE = 1;
-	private final static int AMOUNT_SPLIT = 3;
+	private final static int AMOUNT_SPLIT = 1;
 	Color c;
 	public Planet(int x, int y, int m, int h, int w)
 	{
@@ -48,9 +48,9 @@ public class Planet extends Body
 		}
 		else
 		{
-			if(mass <= AMOUNT_SPLIT*ATOMIC_SIZE)//planet can't be split anymore
+			if(this.mass <= AMOUNT_SPLIT*ATOMIC_SIZE)//planet can't be split anymore
 			{
-				System.out.println("Planet needs to be destroyed");
+				System.out.println("Planet is too small, needs to be destroyed");
 				this.collisionDestroy();
 				//destroy this planet
 				//todo add in an animation
@@ -68,7 +68,7 @@ public class Planet extends Body
 					System.out.println("Creating a planet");
 					Vector newVelocity = this.getVelocity();//TODO this is the hard part
 					Planet p = new Planet(centerLocation, newVelocity, newMass, 10, 10);
-					p.setSafeTime(360);
+					p.setSafeTime(60);
 					Universe.getInstance().addBody(p);//TODO fix how height and width works
 					//TODO make the add planet function in universe better
 					currentAngle = currentAngle - angleStep;//TODO
@@ -82,7 +82,6 @@ public class Planet extends Body
 	 */
 	protected void collisionDestroy()
 	{
-		
 		Body ejected = Universe.getInstance().remove(this);
 		if(ejected == null)
 		{

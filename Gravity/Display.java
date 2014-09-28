@@ -107,7 +107,7 @@ public class Display
 	
 	public Vector fromScreen(int x, int y)
 	{
-		int xLoc, yLoc = 0;
+		int xLoc, yLoc;
 		xLoc = (int) Math.round(x*scale);
 		yLoc = (int) Math.round(y*scale);
 		return new Vector(xLoc,yLoc);

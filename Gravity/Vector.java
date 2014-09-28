@@ -7,7 +7,6 @@ class Vector
 	//The X and Y component of this vector
 	private double xComp, yComp;
 
-
 	public Vector(double x, double y)
 	{
 		xComp = x;
@@ -42,7 +41,7 @@ class Vector
 	/*
 	Returns a Vector that is divided by the scalar passed in.
 	*/
-	public Vector divideBy(int scalar)
+	private Vector divideBy(int scalar)
 	{
 		if(scalar == 0)
 		{
@@ -82,6 +81,12 @@ class Vector
 		double y = yComp + a.getYComp();
 		return (new Vector(x,y));
 	}
+	
+	/**
+	 * Addition function used for debugging purposes
+	 * @param a
+	 * @return
+	 */
 	public Vector specialAddition(Vector a)
 	{
 		double x = xComp + a.getXComp();

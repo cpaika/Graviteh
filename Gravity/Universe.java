@@ -2,11 +2,12 @@ package Gravity;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-class Universe
+public class Universe
 {
 	private static Universe instance = null;
 	BodySet bodies = null;
 	ArrayList<Body> collisions;
+	Body center;
 	private Universe()//private to ensure singleton
 	{
 		bodies = new BodySet();
@@ -101,7 +102,7 @@ class Universe
 	 */
 	public void generateTest()
 	{
-		Body center = addBody(new Planet(500,500,1000,20,20));
+		center = addBody(new Planet(500,500,1000,20,20));
 		
 		Planet p1 = new Planet(900,500,5,20,20);
 		p1.fixIntoOrbit(center);
@@ -182,5 +183,10 @@ class Universe
 		{
 			collisions.add(a);
 		}
+	}
+	
+	public Body getCenterBody()
+	{
+		return center;
 	}
 }

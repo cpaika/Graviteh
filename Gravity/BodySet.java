@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 /**
  * This class is a wrapper for an ArrayList, used as the Set of Body objects in the Universe.  Helps manipulate the ArrayList
- * and prevent any corruption/errors from affecting the Universe state.
+ * and prevent any corruption/errors from affecting the Universe state.  Follow the decorator pattern.
  * @author Christopher Paika
  *
  */

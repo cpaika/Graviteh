@@ -31,6 +31,7 @@ public class GameEngine extends JPanel
 		mouseControl = new UserMouse();
 		sk.addMouseListener(mouseControl);
 		sk.addMouseWheelListener(mouseControl);
+		sk.addMouseMotionListener(mouseControl);
 		sk.addKeyListener(control);
 		setDoubleBuffered(true);
 	}

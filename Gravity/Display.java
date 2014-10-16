@@ -8,12 +8,13 @@ public class Display
 {
 	private static final double SCALE_FACTOR = 3;
 	private static final int ZOOM_SPEED = 30;
+	private static final int PANNING_SPEED = 1;
 	private static Display window = null;
-	private int startX, startY;
-	private int endX, endY;
+	private Vector origin;
+	private Vector end;
+	private Vector screenDimensions;
 	private Graphics g;
 	private Image offscreen;
-	private int width, height;
 	private double scale;
 	private boolean changingScale;
 	private double targetScale;
@@ -24,21 +25,22 @@ public class Display
 	private Display(int width, int height)
 	{
 		targetScale = scale = 1;
-		startX = startY = 0;
-		endX = width;
-		endY = height;
-		this.width = width;
-		this.height = height;
+		origin = new Vector(0,0);
+		end = new Vector(width,height);
+		screenDimensions = new Vector(width, height);
 		changingScale = false;
 	}
 	
 	//TODO: implement support for moving the screen
 	public void draw(int absX, int absY, int width, int height, Color color)//Fix sprite
 	{
-		if(((((absX/scale) + (width/scale)) > (startX)) && ((absX/scale) < endX)) && ((((absY/scale) + (height)) > (startY)) && ((absY/scale) < (endY))))//if the object about to be displayed is inside the screen
-		{
+		if(this.withinScreen(absX, absY, height, width))
+		{	
+			Vector sp = this.getScreenVector(new Vector(absX, absY));
 			g.setColor(color);
-			g.fillOval((int)Math.round(absX/scale), (int)Math.round(absY/scale), (int)Math.round(width/scale), (int)Math.round(height/scale));
+			int startX = (int)(sp.getXComp() + .5);
+			int startY = (int)(sp.getYComp() + .5);
+			g.fillOval(startX, startY, (int)Math.round(width/scale), (int)Math.round(height/scale));
 		}
 	}
 	/*
@@ -77,7 +79,7 @@ public class Display
 		if(g != null)
 		{
 			g.setColor(Color.black);
-			g.clearRect(0, 0, endX, endY);
+			g.fillRect(0, 0, screenDimensions.getXInt(), screenDimensions.getYInt());
 		}
 	}
 	public void prime(Graphics graphics)
@@ -85,9 +87,10 @@ public class Display
 		if(changingScale)//if the screen is currently zooming
 		{
 			scale = scale + (targetScale - scale)/(ZOOM_SPEED);
-			if(scale == targetScale)
+			if(Math.abs(targetScale - scale) < .01)
 			{
 				changingScale = false;
+				scale = targetScale;
 			}
 		}
 		g = graphics;
@@ -136,5 +139,58 @@ public class Display
 	{
 		changingScale = true;
 		targetScale = newScale;
+	}
+	
+	/**
+	 * This function takes in a distance vector and pans the screen equivalent to the direction and distance of the vector given
+	 * @param distance The vector to pan the screen
+	 */
+	public void pan(Vector distance)
+	{
+		origin = origin.addition(distance.divideBy(scale));
+		end = end.addition(distance.divideBy(scale));
+	}
+	
+	/**
+	 * Checks if the passed in bounds are within the current screen
+	 * @param absX
+	 * @param absY
+	 * @param height
+	 * @param width
+	 * @return
+	 */
+	private boolean withinScreen(int absX, int absY, int height, int width)
+	{
+		Vector sp = getScreenVector(new Vector(absX, absY));
+		double newWidth = (width/scale);
+		double newHeight = (height/scale);
+	
+		if(sp.getXComp() + newWidth < 0)
+		{
+			return false;
+		}
+		if(sp.getXComp() > screenDimensions.getXComp())
+		{
+			return false;
+		}
+		if(sp.getYComp() + newHeight < 0)
+		{
+			return false;
+		}
+		if(sp.getYComp() > screenDimensions.getYComp())
+		{
+			return false;
+		}
+		return true;
+	}
+	/**
+	 * Takes an absolute position vector and returns the vector converted in respect to the screen
+	 * @return Vector with the objects coordinates on the screen
+	 */
+	public Vector getScreenVector(Vector v)
+	{
+		double newX = ((v.getXComp() - origin.getXComp())/scale);
+		double newY = ((v.getYComp() - origin.getYComp())/scale);
+		return new Vector(newX, newY);
 	}
 }

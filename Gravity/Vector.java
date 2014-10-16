@@ -27,7 +27,7 @@ class Vector
 	{
 		return Math.sqrt((xComp*xComp) + (yComp*yComp));
 	}
-
+	
 	public double getXComp()
 	{
 		return xComp;
@@ -36,6 +36,21 @@ class Vector
 	public double getYComp()
 	{
 		return yComp;
+	}
+	
+	/**
+	 * @return Returns the x component of this vector rounded to the nearest integer
+	 */
+	public int getXInt()
+	{
+		return (int)(xComp + .5);
+	}
+	/**
+	 * @return Returns the y component of this vector rounded to the nearest integer
+	 */
+	public int getYInt()
+	{
+		return (int)(yComp + .5);
 	}
 	
 	/**

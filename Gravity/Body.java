@@ -71,11 +71,11 @@ abstract class Body implements Controllable
 	}
 	public int getPosX()
 	{
-		return (int) ((centerLocation.getXComp()+(width/2)) + .5);
+		return (int) ((centerLocation.getXComp()-(width/2)) + .5);
 	}
 	public int getPosY()
 	{
-		return (int) ((centerLocation.getYComp()+(height/2)) + .5);
+		return (int) ((centerLocation.getYComp()-(height/2)) + .5);
 	}
 	public Vector getVelocity()
 	{

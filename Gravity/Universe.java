@@ -7,11 +7,14 @@ public class Universe
 	private static Universe instance = null;
 	BodySet bodies = null;
 	ArrayList<Body> collisions;
+	ArrayList<Body> added;
 	Body center;
+	
 	private Universe()//private to ensure singleton
 	{
 		bodies = new BodySet();
 		collisions = new ArrayList<Body>();
+		added = new ArrayList<Body>();
 		generateTest();
 		//generateSmallTest();
 	}
@@ -59,15 +62,25 @@ public class Universe
 				{
 					collisionOccurred(a, b);
 				}
-				Vector forceA = Physics.calcForce(a, b);
-				a.sumForce(forceA.getInverse());
-				b.sumForce(forceA);
+				if(b.isDestroyable)
+				{
+					Vector forceA = Physics.calcForce(a, b);
+					a.sumForce(forceA.getInverse());
+					b.sumForce(forceA);
+				}
 			}
 		}
-		while(collisions.size() > 0)//Empties the collision event stack
+		//Below empties the collision event stack
+		while(collisions.size() > 0)
 		{
 			Body c = collisions.remove(0);
 			c.collisionOccurred();
+		}
+		//Below empties the added body event stack
+		while(added.size() > 0)
+		{
+			Body b = added.remove(0);
+			this.bodies.addBody(b);
 		}
 	}
 	/**
@@ -77,7 +90,6 @@ public class Universe
 	 */
 	private void collisionOccurred(Body a, Body b)
 	{
-		System.out.println("Collision occured");
 		if(a.getMass() > b.getMass())
 		{
 			addToCollisions(b);
@@ -146,7 +158,7 @@ public class Universe
 	 */
 	public Body addBody(Body b)
 	{
-		if(bodies.addBody(b))
+		if(this.added.add(b))
 		{
 			return b;
 		}

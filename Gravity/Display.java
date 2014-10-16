@@ -35,7 +35,7 @@ public class Display
 	//TODO: implement support for moving the screen
 	public void draw(int absX, int absY, int width, int height, Color color)//Fix sprite
 	{
-		if(((((absX/scale) + (width/scale)) > (startX/scale)) && ((absX/scale) < endX*scale)) && ((((absY/scale) + (height/scale)) > (startY/scale)) && ((absY/scale) < (endY*scale))))//if the object about to be displayed is inside the screen
+		if(((((absX/scale) + (width/scale)) > (startX)) && ((absX/scale) < endX)) && ((((absY/scale) + (height)) > (startY)) && ((absY/scale) < (endY))))//if the object about to be displayed is inside the screen
 		{
 			g.setColor(color);
 			g.fillOval((int)Math.round(absX/scale), (int)Math.round(absY/scale), (int)Math.round(width/scale), (int)Math.round(height/scale));

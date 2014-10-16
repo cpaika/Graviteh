@@ -147,7 +147,7 @@ public class Display
 	 */
 	public void pan(Vector distance)
 	{
-		origin = origin.addition(distance.divideBy(scale));
+		origin = origin.addition(distance);
 		end = end.addition(distance.divideBy(scale));
 	}
 	

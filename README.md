@@ -1,8 +1,8 @@
 Graviteh
 ========
 
-Graviteh is a simple Java game where you explore and conquer space, using realistic physics.  I came up with the idea after playing games such as Kerbal Space Program, N-Ball, and other 2d and 3d games involving gravitational physics.
+Graviteh is a gravitational attraction simulation, implemented in Java with Swing Java Graphics.  Its current functionality is very basic, with hopes to add in gameplay elements as the code becomes more refined.
 
-Summary:  You start with one planet, and using sattelites and spaceships you attempt to subjugate the universe to your will, exploring, establishing vital communication links, conquering other planets in the name of your empire and defeating the other AI players in your celestial neighborhood.  
+Currently the game starts with a screen filled with gravitational bodies orbiting a central body with a relatively large mass.  The user can click on the screen to create a body, zoom in and out with their mouse wheel as well as use the arrow keys to change the velocity of the body starting in the center of the screen.
 
 

@@ -6,6 +6,8 @@ import java.awt.Image;
 
 public class Display 
 {
+	private static final double SCALE_FACTOR = 3;
+	private static final int ZOOM_SPEED = 30;
 	private static Display window = null;
 	private int startX, startY;
 	private int endX, endY;
@@ -13,18 +15,21 @@ public class Display
 	private Image offscreen;
 	private int width, height;
 	private double scale;
+	private boolean changingScale;
+	private double targetScale;
 	
 	/**
 	 * Takes in the width and height of the screen, need to be called before any other function call
 	 */
 	private Display(int width, int height)
 	{
-		scale = 1;
+		targetScale = scale = 1;
 		startX = startY = 0;
 		endX = width;
 		endY = height;
 		this.width = width;
 		this.height = height;
+		changingScale = false;
 	}
 	
 	//TODO: implement support for moving the screen
@@ -77,6 +82,14 @@ public class Display
 	}
 	public void prime(Graphics graphics)
 	{
+		if(changingScale)//if the screen is currently zooming
+		{
+			scale = scale + (targetScale - scale)/(ZOOM_SPEED);
+			if(scale == targetScale)
+			{
+				changingScale = false;
+			}
+		}
 		g = graphics;
 		clearScreen();
 	}
@@ -97,11 +110,11 @@ public class Display
 	{
 		if(scrollAmount > 0)//zoom in
 		{
-			scale = scale/1.1;
+			zoomToScale(scale/SCALE_FACTOR);
 		}
 		else if(scrollAmount < 0)//zoom out
 		{
-			scale = scale*1.1;
+			zoomToScale(scale*SCALE_FACTOR);
 		}
 	}
 	
@@ -112,5 +125,16 @@ public class Display
 		yLoc = (int) Math.round(y*scale);
 		return new Vector(xLoc,yLoc);
 		//return new Vector(x,y);
+	}
+	
+	/**
+	 * This function zooms the screen smoothly to the new scaling factor
+	 * @param newScale The scaling factor desired
+	 */
+	
+	public void zoomToScale(double newScale)
+	{
+		changingScale = true;
+		targetScale = newScale;
 	}
 }

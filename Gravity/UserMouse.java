@@ -23,8 +23,8 @@ public class UserMouse implements MouseListener, MouseWheelListener, MouseMotion
 		if(e.getButton() == MouseEvent.BUTTON3)//if right mouse button clicked
 		{
 			Display d = Display.getDisplay();
-			Vector location = d.fromScreen(e.getX(), e.getY());
-			Planet temp = new Planet((int)Math.ceil(location.getXComp()), (int)Math.ceil(location.getYComp()),20, 20, 20);
+			Vector location = d.getAbsoluteVector(new Vector(e.getX(), e.getY()));
+			Planet temp = new Planet((int)(location.getXComp() + .5), (int)(location.getYComp() + .5),20, 20, 20);
 			temp.fixIntoOrbit(Universe.getInstance().getCenterBody());
 			if(Universe.getInstance().addBody(temp) == null)
 			{

@@ -49,6 +49,7 @@ public class Universe
 		{
 			b.draw();
 		}
+		Display.getDisplay().drawText("Bodies: " + String.valueOf(bodies.getSize()));
 	}
 	private void calcGravAndCollisions()
 	{
@@ -114,7 +115,7 @@ public class Universe
 	 */
 	public void generateTest()
 	{
-		center = addBody(new Planet(500,500,1000,20,20));
+		center = addBody(new Planet(500,500,5000,20,20));
 		
 		Planet p1 = new Planet(900,500,5,20,20);
 		p1.fixIntoOrbit(center);

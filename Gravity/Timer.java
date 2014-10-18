@@ -1,5 +1,7 @@
 package Gravity;
 
+import javax.swing.SwingUtilities;
+
 public class Timer 
 {
 	public int fps;

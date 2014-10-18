@@ -75,4 +75,13 @@ public class BodySet implements Iterable<Body>
 		newBodies.removeAll(removes);
 		return newBodies;
 	}
+	
+	/**
+	 * 
+	 * @return Returns the amount of body objects in the universe
+	 */
+	public int getSize()
+	{
+		return this.bodies.size();
+	}
 }

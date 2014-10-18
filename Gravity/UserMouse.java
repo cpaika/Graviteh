@@ -24,7 +24,7 @@ public class UserMouse implements MouseListener, MouseWheelListener, MouseMotion
 		{
 			Display d = Display.getDisplay();
 			Vector location = d.getAbsoluteVector(new Vector(e.getX(), e.getY()));
-			Planet temp = new Planet((int)(location.getXComp() + .5), (int)(location.getYComp() + .5),20, 20, 20);
+			Planet temp = new Planet((int)(location.getXComp() + .5), (int)(location.getYComp() + .5),200, 20, 20);
 			temp.fixIntoOrbit(Universe.getInstance().getCenterBody());
 			if(Universe.getInstance().addBody(temp) == null)
 			{

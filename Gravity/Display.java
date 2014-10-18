@@ -8,7 +8,7 @@ public class Display
 {
 	private static final double SCALE_FACTOR = 3;
 	private static final int ZOOM_SPEED = 30;
-	private static final int PANNING_SPEED = 1;
+	private static final int PANNING_SPEED = 60;
 	private static Display window = null;
 	private Vector origin;
 	private Vector end;
@@ -18,6 +18,11 @@ public class Display
 	private double scale;
 	private boolean changingScale;
 	private double targetScale;
+	private boolean changingOrigin;
+	private Vector targetOrigin;
+	private Vector startOrigin;
+	private int changingCount;
+	private String output;
 	
 	/**
 	 * Takes in the width and height of the screen, need to be called before any other function call
@@ -29,6 +34,9 @@ public class Display
 		end = new Vector(width,height);
 		screenDimensions = new Vector(width, height);
 		changingScale = false;
+		changingOrigin = false;
+		targetOrigin = startOrigin = null;
+		output = null;
 	}
 	
 	//TODO: implement support for moving the screen
@@ -93,8 +101,23 @@ public class Display
 				scale = targetScale;
 			}
 		}
+		if(changingOrigin)
+		{
+			this.changingCount--;
+			Vector increment = targetOrigin.subtract(startOrigin);
+			increment = increment.divideBy(PANNING_SPEED);
+			this.origin = origin.addition(increment);
+			if(changingCount <= 0)
+			{
+				//origin = targetOrigin;
+				changingOrigin = false;
+				changingCount = 0;
+				targetOrigin = startOrigin = null;
+			}
+		}
 		g = graphics;
 		clearScreen();
+		output = "";
 	}
 	public void stopDrawing()
 	{
@@ -147,8 +170,18 @@ public class Display
 	 */
 	public void pan(Vector distance)
 	{
-		origin = origin.addition(distance);
-		end = end.addition(distance.divideBy(scale));
+		if(changingOrigin)
+		{
+			targetOrigin = targetOrigin.addition(distance);
+			changingCount = this.PANNING_SPEED;
+		}
+		else
+		{
+			changingCount = this.PANNING_SPEED;
+			changingOrigin = true;
+			startOrigin = this.origin;
+			targetOrigin = origin.addition(distance);
+		}
 	}
 	
 	/**
@@ -192,5 +225,29 @@ public class Display
 		double newX = ((v.getXComp() - origin.getXComp())/scale);
 		double newY = ((v.getYComp() - origin.getYComp())/scale);
 		return new Vector(newX, newY);
+	}
+	
+	public Vector getAbsoluteVector(Vector sp)
+	{
+		sp = sp.multiplyBy(scale);
+		sp = sp.subtract(origin);
+		return sp;
+	}
+	
+	/**
+	 * This function takes a string and draws it in the upper left corner of the screen, as well as properly formatting it to some degree
+	 * @param draw The text being drawn to the screen
+	 */
+	public void drawText(String draw)
+	{
+		if(output == null)
+		{
+			output = "";
+		}
+		Color temp = g.getColor();
+		g.setColor(Color.WHITE);
+		output = output + draw ;
+		g.drawString(output, 10, 25);
+		g.setColor(temp);
 	}
 }

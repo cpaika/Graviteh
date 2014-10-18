@@ -42,7 +42,6 @@ public class Planet extends Body
 	{
 		if(!this.isDestroyable)//if planet cannot be destroyed
 		{
-			System.out.println("Planet is not destroyable yet");
 			return;
 		}
 		else
@@ -61,7 +60,6 @@ public class Planet extends Body
 				double currentAngle = 45;
 				for(int i = 0; i < AMOUNT_SPLIT; i++)
 				{
-					System.out.println("Creating a planet");
 					Vector newVelocity = this.getVelocity();//TODO this is the hard part
 					newVelocity = newVelocity.rotate(currentAngle);
 					Planet p = new Planet(centerLocation, newVelocity, newMass, 10, 10);

@@ -27,7 +27,7 @@ public class GameEngine extends JPanel
 		theGame = Universe.getInstance();
 		sk= new Skeleton(this, WIDTH, HEIGHT);
 		time = new Timer(FRAMERATE);
-		control = new ControlListener(theGame.getPlayer());
+		control = new ControlListener();
 		mouseControl = new UserMouse();
 		sk.addMouseListener(mouseControl);
 		sk.addMouseWheelListener(mouseControl);

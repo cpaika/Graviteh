@@ -230,7 +230,7 @@ public class Display
 	public Vector getAbsoluteVector(Vector sp)
 	{
 		sp = sp.multiplyBy(scale);
-		sp = sp.subtract(origin);
+		sp = sp.addition(origin);
 		return sp;
 	}
 	
@@ -249,5 +249,17 @@ public class Display
 		output = output + draw ;
 		g.drawString(output, 10, 25);
 		g.setColor(temp);
+	}
+	/**
+	 * Zooms/pans the screen to the new location
+	 * @param scrollAmount mousewheel movement
+	 * @param newCenter new center of the screen to pan to
+	 */
+	public void scrollPan(int scrollAmount, Vector newCenter)
+	{
+		newCenter = getAbsoluteVector(newCenter);
+		Vector distance = newCenter.subtract((origin.addition(screenDimensions.divideBy(2))));
+		pan(distance);
+		scroll(scrollAmount);
 	}
 }

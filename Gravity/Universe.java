@@ -8,13 +8,16 @@ public class Universe
 	BodySet bodies = null;
 	ArrayList<Body> collisions;
 	ArrayList<Body> added;
+	ArrayList<ControlEvent> events;
 	Body center;
+	
 	
 	private Universe()//private to ensure singleton
 	{
 		bodies = new BodySet();
 		collisions = new ArrayList<Body>();
 		added = new ArrayList<Body>();
+		events = new ArrayList<ControlEvent>();
 		generateTest();
 		//generateSmallTest();
 	}
@@ -83,6 +86,22 @@ public class Universe
 			Body b = added.remove(0);
 			this.bodies.addBody(b);
 		}
+		//Below empties the event stack
+		while(events.size() > 0)
+		{
+			ControlEvent e = events.remove(0);
+			Body b = this.getPlayer();
+			switch (e.getType())
+			{
+				case "UP":
+					
+				case "DOWN":
+					
+				case "LEFT":
+					
+				case "RIGHT":
+			}
+		}
 	}
 	/**
 	 * Called on two Body objects when a collision occurs between them.  Decides what to do based on both Body's state
@@ -147,7 +166,7 @@ public class Universe
 	/** Returns a reference to the current player controlled body
 	 * @return Returns the player controlled Body if it exists.  If there is no current Player controlled Body this returns null.
 	 */
-	public Body getPlayer()
+	private Body getPlayer()
 	{
 		return bodies.getPlayer();
 	}
@@ -201,5 +220,13 @@ public class Universe
 	public Body getCenterBody()
 	{
 		return center;
+	}
+	/**
+	 * Receives a ControlEvent and adds it to the Event Queue
+	 * @param e The ControlEvent to be added
+	 */
+	public void sendEvent(ControlEvent e)
+	{
+		events.add(e);
 	}
 }

@@ -63,7 +63,7 @@ public class Planet extends Body
 					Vector newVelocity = this.getVelocity();//TODO this is the hard part
 					newVelocity = newVelocity.rotate(currentAngle);
 					Planet p = new Planet(centerLocation, newVelocity, newMass, 10, 10);
-					p.setSafeTime(60);
+					p.setSafeTime(30);
 					Universe.getInstance().addBody(p);//TODO fix how height and width works
 					//TODO make the add planet function in universe better
 					currentAngle = currentAngle - angleStep;//TODO

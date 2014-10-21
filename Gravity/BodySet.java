@@ -27,10 +27,6 @@ public class BodySet implements Iterable<Body>
 	 */
 	public boolean addBody(Body a)
 	{
-		if(player == null)
-		{
-			player = a;
-		}
 		bodies.add(a);
 		return true;
 	}
@@ -63,6 +59,15 @@ public class BodySet implements Iterable<Body>
 	public Body getPlayer() 
 	{
 		return player;
+	}
+	
+	/**
+	 * Set the current Player
+	 * @param The Body object to set as the player
+	 */
+	public void setplayer(Body player)
+	{
+		this.player = player;
 	}
 
 	/**  Returns this Set of Objects with collisions between this and the parameter removed

@@ -24,7 +24,7 @@ public class UserMouse implements MouseListener, MouseWheelListener, MouseMotion
 		{
 			Display d = Display.getDisplay();
 			Vector location = d.getAbsoluteVector(new Vector(e.getX(), e.getY()));
-			Planet temp = new Planet((int)(location.getXComp() + .5), (int)(location.getYComp() + .5),200, 20, 20);
+			Planet temp = new Planet((int)(location.getXComp() + .5), (int)(location.getYComp() + .5),100, 20, 20);
 			temp.fixIntoOrbit(Universe.getInstance().getCenterBody());
 			if(Universe.getInstance().addBody(temp) == null)
 			{
@@ -74,6 +74,14 @@ public class UserMouse implements MouseListener, MouseWheelListener, MouseMotion
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) 
 	{
+		/**
+		Code needs to be made sometime
+		if(e.getWheelRotation() > 0)//If the user zooms in pan and scale
+		{
+			Display.getDisplay().scrollPan(e.getWheelRotation(), new Vector(e.getX(),e.getY()));
+		}
+		else//if the user is zooming out just scale
+		*/
 		Display.getDisplay().scroll(e.getWheelRotation());
 	}
 

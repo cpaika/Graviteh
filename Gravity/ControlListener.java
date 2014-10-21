@@ -5,31 +5,26 @@ import java.awt.event.KeyListener;
 
 public class ControlListener implements KeyListener
 {
-	Controllable thePlayer;
-	public ControlListener(Controllable theP)
-	{
-		thePlayer = theP;
-	}
-
 	@Override
 	public void keyPressed(KeyEvent e) 
 	{
+		Universe main = Universe.getInstance();
 		switch (e.getKeyCode())
 		{
 			case KeyEvent.VK_DOWN:
-				thePlayer.downButton();
+				main.sendEvent(new ControlEvent("DOWN"));
 				break;
 				
 			case KeyEvent.VK_UP:
-				thePlayer.upButton();
+				main.sendEvent(new ControlEvent("UP"));
 				break;
 				
 			case KeyEvent.VK_LEFT:
-				thePlayer.leftButton();
+				main.sendEvent(new ControlEvent("LEFT"));
 				break;
 			
 			case KeyEvent.VK_RIGHT:
-				thePlayer.rightButton();
+				main.sendEvent(new ControlEvent("RIGHT"));
 				break;
 		}
 	}

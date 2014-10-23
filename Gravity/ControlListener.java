@@ -26,6 +26,9 @@ public class ControlListener implements KeyListener
 			case KeyEvent.VK_RIGHT:
 				main.sendEvent(new ControlEvent("RIGHT"));
 				break;
+			case KeyEvent.VK_SPACE:
+				main.sendEvent(new ControlEvent("SPACE"));
+				break;
 		}
 	}
 

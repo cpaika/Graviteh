@@ -280,4 +280,15 @@ public class Display
 		pan(distance);
 		scroll(scrollAmount);
 	}
+	/**
+	 * Draws a laser beam to the screen
+	 * @param location location of the laser beam
+	 * @param normalize Direction the beam is pointed
+	 */
+	public void drawLaser(Vector location, Vector direction, Color c) 
+	{
+		location = this.getScreenVector(location);
+		g.setColor(c);
+		g.drawRect(location.getXInt(), location.getYInt(), (int)(5/scale), (int)(5/scale));
+	}
 }

@@ -129,4 +129,9 @@ public class Planet extends Body
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void spaceButton() {
+		// TODO Auto-generated method stub
+		
+	}
 }

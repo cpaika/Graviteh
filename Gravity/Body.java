@@ -6,7 +6,8 @@ abstract class Body implements Controllable
 	//Center of the body object
 	private final int GLOBAL_SPEED_LIMIT = 30;
 	protected Vector centerLocation;
-	int height, width = 0; //TODO:initialize these
+	protected int height, width;
+	protected Vector dimensions;
 	protected Vector velocity;//velocity vector
 	protected Vector accel;//acceleration vector
 	Vector force;//force vector
@@ -24,6 +25,7 @@ abstract class Body implements Controllable
 		mass = m;
 		height = h;
 		width = w;
+		dimensions = new Vector(w,h);
 		display = Display.getDisplay();
 		setUp();
 	}
@@ -39,6 +41,7 @@ abstract class Body implements Controllable
 		mass = m;
 		height = h;
 		width = w;
+		dimensions = new Vector(w,h);
 		display = Display.getDisplay();
 		setUp();
 	}
@@ -49,6 +52,7 @@ abstract class Body implements Controllable
 		mass = m;
 		height = h;
 		width = w;
+		dimensions = new Vector(w,h);
 		display = Display.getDisplay();
 		setUp();
 	}
@@ -180,6 +184,7 @@ abstract class Body implements Controllable
 	abstract public void leftButton();
 	abstract public void rightButton(); 
 	abstract public void downButton();
+	abstract public void spaceButton();
 	
 	public CollisionBox getCollisionBox()
 	{

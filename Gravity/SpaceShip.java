@@ -20,7 +20,7 @@ public class SpaceShip extends Body
 		{
 			System.err.println("spaceship image didnt load");
 		}
-		direction = new Vector(0,-1);
+		direction = rotationOffset;
 	}
 
 	@Override
@@ -54,6 +54,9 @@ public class SpaceShip extends Body
 				break;
 			case "RIGHT":
 				rightButton();
+				break;
+			case "SPACE":
+				spaceButton();
 				break;
 		}
 	}
@@ -97,5 +100,15 @@ public class SpaceShip extends Body
 		direction = direction.rotate(2*Math.PI*ROTCONSTANT);
 		direction.normalize();
 		System.out.println("RIGHT angle: " + direction.getAngle());
+	}
+
+	@Override
+	/**
+	 * Called when the user hits the space bar, fires a laster beam
+	 */
+	public void spaceButton()
+	{
+		Vector start = this.centerLocation.addition(direction.multiplyBy(this.dimensions.getMagnitude()));
+		Universe.getInstance().newLaserBeam(start, direction.multiplyBy(20).addition(this.velocity));
 	}
 }

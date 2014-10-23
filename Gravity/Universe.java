@@ -8,6 +8,7 @@ public class Universe
 	BodySet bodies = null;
 	ArrayList<Body> collisions;
 	ArrayList<Body> added;
+	ArrayList<LaserBeam> laserBeams;
 	ArrayList<ControlEvent> events;
 	Body center;
 	
@@ -18,8 +19,9 @@ public class Universe
 		collisions = new ArrayList<Body>();
 		added = new ArrayList<Body>();
 		events = new ArrayList<ControlEvent>();
-		//generateTest();
-		generateSmallTest();
+		laserBeams = new ArrayList<LaserBeam>();
+		generateTest();
+		//generateSmallTest();
 	}
 	
 	/**
@@ -42,6 +44,10 @@ public class Universe
 		{
 			b.update();
 		}
+		for(LaserBeam l: laserBeams)
+		{
+			l.update();
+		}
 	}
 	/**
 	Draws the objects to screen
@@ -51,6 +57,10 @@ public class Universe
 		for(Body b: bodies)
 		{
 			b.draw();
+		}
+		for(LaserBeam l: laserBeams)
+		{
+			l.draw();
 		}
 		Display.getDisplay().drawText("Bodies: " + String.valueOf(bodies.getSize()));
 	}
@@ -226,5 +236,15 @@ public class Universe
 	public void sendEvent(ControlEvent e)
 	{
 		events.add(e);
+	}
+	/**
+	 * Adds a LaserBeam to the Universe and begins displaying/moving it
+	 * @param start The location of the LaserBeam
+	 * @param velocity The velocity of the laser beam
+	 */
+	public void newLaserBeam(Vector start, Vector velocity) 
+	{
+		LaserBeam temp = new LaserBeam(start, velocity);
+		laserBeams.add(temp);
 	}
 }

@@ -12,12 +12,13 @@ import java.util.Iterator;
  */
 public class BodySet implements Iterable<Body>
 {
+	private static final int NONEXISTANT = -1;
 	private ArrayList<Body> bodies;
-	private Body player;
+	private int playerIndex;
 	public BodySet()
 	{
 		bodies = new ArrayList<Body>();
-		player = null;
+		playerIndex = NONEXISTANT;
 	}
 	
 	/**
@@ -37,9 +38,9 @@ public class BodySet implements Iterable<Body>
 	 */
 	public boolean removeBody(Body r)
 	{
-		if(r == player)
+		if((playerIndex != NONEXISTANT) && (r == bodies.get(playerIndex)))
 		{
-			player = null;
+			playerIndex = NONEXISTANT;
 		}
 		return bodies.remove(r);
 	}
@@ -58,16 +59,24 @@ public class BodySet implements Iterable<Body>
 	 */
 	public Body getPlayer() 
 	{
-		return player;
+		if(playerIndex == NONEXISTANT)
+		{
+			return null;
+		}
+		else
+		{
+			return bodies.get(playerIndex);
+		}
 	}
 	
 	/**
 	 * Set the current Player
 	 * @param The Body object to set as the player
 	 */
-	public void setplayer(Body player)
+	public void addSetPlayer(Body player)
 	{
-		this.player = player;
+		bodies.add(0, player);
+		playerIndex = 0;
 	}
 
 	/**  Returns this Set of Objects with collisions between this and the parameter removed

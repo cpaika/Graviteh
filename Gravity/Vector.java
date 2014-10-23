@@ -59,21 +59,7 @@ class Vector
 	 */
 	public double getAngle()
 	{
-		double offset = 0;
-		if(this.getXComp() < 0 && this.getYComp() > 0)
-		{
-			offset = Math.PI/2;
-		}
-		if(this.getXComp() < 0 && this.getYComp() < 0)
-		{
-			offset = Math.PI;
-		}
-		if(this.getXComp() > 0 && this.getYComp() < 0)
-		{
-			offset = Math.PI*1.5;
-		}
-		double angle = Math.asin(this.getYComp());
-		return (angle + offset);
+		return Math.atan2(this.getYComp(), this.getXComp());
 	}
 
 	/*

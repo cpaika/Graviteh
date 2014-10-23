@@ -18,8 +18,8 @@ public class Universe
 		collisions = new ArrayList<Body>();
 		added = new ArrayList<Body>();
 		events = new ArrayList<ControlEvent>();
-		generateTest();
-		//generateSmallTest();
+		//generateTest();
+		generateSmallTest();
 	}
 	
 	/**
@@ -90,16 +90,9 @@ public class Universe
 		while(events.size() > 0)
 		{
 			ControlEvent e = events.remove(0);
-			Body b = this.getPlayer();
-			switch (e.getType())
+			if(this.getPlayer() != null)
 			{
-				case "UP":
-					
-				case "DOWN":
-					
-				case "LEFT":
-					
-				case "RIGHT":
+				this.getPlayer().eventOccurred(e);
 			}
 		}
 	}
@@ -134,8 +127,7 @@ public class Universe
 	 */
 	public void generateTest()
 	{
-		center = addBody(new Planet(500,500,2500,20,20));
-		
+		center = addBody(new Planet(500,500,5000,20,20));
 		Planet p1 = new Planet(900,500,5,20,20);
 		p1.fixIntoOrbit(center);
 		addBody(p1);
@@ -155,13 +147,19 @@ public class Universe
 		Planet p5 = new Planet(400,500,5,20,20);
 		p5.fixIntoOrbit(center);
 		addBody(p5);
+		
+		SpaceShip first = new SpaceShip(new Vector(50,50), new Vector(0,0), 5, new Vector(20, 20));
+		bodies.addSetPlayer(first);
 	}
 	public void generateSmallTest()
 	{
-		Body center = addBody(new Planet(500,500,1000,20,20));
+		center = addBody(new Planet(500,500,10000,20,20));
 		Planet p = new Planet(600,500,1,20,20);
 		p.fixIntoOrbit(center);
 		addBody(p);
+		
+		SpaceShip first = new SpaceShip(new Vector(50,50), new Vector(0,0), 5, new Vector(20, 20));
+		bodies.addSetPlayer(first);
 	}
 	/** Returns a reference to the current player controlled body
 	 * @return Returns the player controlled Body if it exists.  If there is no current Player controlled Body this returns null.

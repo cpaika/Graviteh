@@ -86,4 +86,47 @@ public class Planet extends Body
 		return;
 		
 	}
+	/**
+	 * @Override
+	 * This take a ControlEvent and moves the planet accordingly
+	 * @param the ControlEvent that occurred
+	 */
+	protected void eventOccurred(ControlEvent e)
+	{
+		switch (e.getType())
+		{
+			case "UP":
+				velocity = velocity.addition(velocity.normalize());
+			case "DOWN":
+				velocity = velocity.subtract(velocity.normalize());
+			case "LEFT":
+				velocity = velocity.addition(velocity.normalize().rotate(90));
+			case "RIGHT":
+				velocity = velocity.addition(velocity.normalize().rotate(270));
+		}
+	}
+	
+	/**
+	 * This functions are unimplemented currently 
+	 */
+	@Override
+	public void upButton() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void leftButton() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void rightButton() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void downButton() {
+		// TODO Auto-generated method stub
+		
+	}
 }

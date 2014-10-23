@@ -5,7 +5,7 @@ abstract class Body implements Controllable
 	protected int safeTime = 0;
 	//Center of the body object
 	private final int GLOBAL_SPEED_LIMIT = 30;
-	Vector centerLocation;
+	protected Vector centerLocation;
 	int height, width = 0; //TODO:initialize these
 	protected Vector velocity;//velocity vector
 	protected Vector accel;//acceleration vector
@@ -55,6 +55,7 @@ abstract class Body implements Controllable
 	
 	public abstract void collisionOccurred();
 	protected abstract void collisionDestroy();
+	protected abstract void eventOccurred(ControlEvent e);
 	
 	public void setUp()
 	{
@@ -95,9 +96,18 @@ abstract class Body implements Controllable
 	{
 		return (int) (centerLocation.getYComp() + .5);
 	}
+	/**
+	 * Returns the Vector pointing to the center of this object
+	 * @return the center of the object
+	 */
 	public Vector getCenterVector()
 	{
 		return centerLocation.copy();
+	}
+	
+	public Vector getTopLeftVector()
+	{
+		return centerLocation.addition(new Vector(-width/2, -height/2));
 	}
 	/*
 	Calculates a new position based on velocity.
@@ -163,40 +173,14 @@ abstract class Body implements Controllable
 		System.out.println("X: " + centerLocation.getXComp() + " Y: " + centerLocation.getYComp());
 	}
 	
-
+	/**
+	 * Functions for manipulating a Body
+	 */
+	abstract public void upButton();
+	abstract public void leftButton();
+	abstract public void rightButton(); 
+	abstract public void downButton();
 	
-	/**
-	 * Calling this increases the downward velocity
-	 */
-	public void downButton() 
-	{
-		velocity = velocity.addition(new Vector(0,1));
-	}
-
-	
-	/**
-	 * Increases upward velocity
-	 */
-	public void upButton() 
-	{
-		velocity = velocity.addition(new Vector(0,-1));
-	}
-
-	/**
-	 * Increases leftward velocity
-	 */
-	public void leftButton() 
-	{
-		velocity = velocity.addition(new Vector(-1,0));
-	}
-
-	/**
-	 * Increases rightward velocity
-	 */
-	public void rightButton() 
-	{
-		velocity = velocity.addition(new Vector(1,0));
-	}
 	public CollisionBox getCollisionBox()
 	{
 		return collide;
@@ -214,8 +198,8 @@ abstract class Body implements Controllable
 	{
 		int mass = center.getMass();
 		Vector distance = this.getCenterVector().subtract(center.getCenterVector());
-		double rawVelocity = Math.sqrt((Physics.gravConst*mass)/distance.getMagnitude());
-		velocity = new Vector(Physics.calcForce(this, center).normalize().getYComp(), Physics.calcForce(this, center).normalize().getXComp());//dirty way of finding normal vector
+		double rawVelocity = Math.sqrt((Physics.gravConst*center.mass)/distance.getMagnitude());
+		velocity = distance.normalize().rotate(90);
 		velocity = velocity.multiplyBy(rawVelocity);
 		return;
 	}

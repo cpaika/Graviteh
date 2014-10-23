@@ -2,7 +2,11 @@ package Gravity;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 
 public class Display 
 {
@@ -49,6 +53,20 @@ public class Display
 			int startX = (int)(sp.getXComp() + .5);
 			int startY = (int)(sp.getYComp() + .5);
 			g.fillOval(startX, startY, (int)Math.round(width/scale), (int)Math.round(height/scale));
+		}
+	}
+	
+	public void drawImage(Vector location, BufferedImage img, Color c, double direction)
+	{
+		if(this.withinScreen(location.getXInt(), location.getYInt(), img.getHeight(), img.getWidth()))
+		{
+			location = this.getScreenVector(location);
+			AffineTransform at = new AffineTransform();
+			at.rotate(direction, img.getWidth()/2, img.getHeight()/2);
+			AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+			img = op.filter(img,  null);
+			//g.drawImage(img, location.getXInt(), location.getYInt(), null);
+			g.drawImage(img, location.getXInt(), location.getYInt(), (int) (img.getWidth()/scale + .5), (int)(img.getHeight()/scale + .5), null);
 		}
 	}
 	/*

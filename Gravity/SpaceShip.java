@@ -5,7 +5,8 @@ import java.awt.image.BufferedImage;
 
 public class SpaceShip extends Body
 {
-	private static final double ROTCONSTANT = .1;
+	private static final double ROTCONSTANT = .025;
+	private static final double SPEED_CONST = 2;
 	private static final Vector rotationOffset = new Vector(0,-1);
 	Vector direction;
 	Color c;
@@ -60,7 +61,7 @@ public class SpaceShip extends Body
 	@Override
 	public void draw()
 	{
-		Display.getDisplay().drawImage(getTopLeftVector(), self, c, direction.subtract(rotationOffset).getAngle());
+		Display.getDisplay().drawImage(getTopLeftVector(), self, c, direction.getAngle() - this.rotationOffset.getAngle());
 		force = new Vector(0,0);
 	}
 
@@ -70,7 +71,7 @@ public class SpaceShip extends Body
 	 */
 	public void upButton() 
 	{
-		this.velocity = this.velocity.addition(direction);
+		this.velocity = this.velocity.addition(direction.divideBy(this.SPEED_CONST));
 	}
 	
 	@Override
@@ -79,21 +80,22 @@ public class SpaceShip extends Body
 	 */
 	public void downButton() 
 	{
-		this.velocity = this.velocity.subtract(direction);
+		this.velocity = this.velocity.subtract(direction.divideBy(this.SPEED_CONST));
 	}
 	
 	@Override
 	public void leftButton() 
 	{
-		direction = direction.rotate(Math.PI*ROTCONSTANT);
+		direction = direction.rotate(-2*Math.PI*ROTCONSTANT);
 		direction.normalize();
+		System.out.println("LEFT angle: " + direction.getAngle());
 	}
 
 	@Override
 	public void rightButton() 
 	{
-		direction = direction.rotate(-1*Math.PI*ROTCONSTANT);
+		direction = direction.rotate(2*Math.PI*ROTCONSTANT);
 		direction.normalize();
-		System.out.println("Direction: " + direction);
+		System.out.println("RIGHT angle: " + direction.getAngle());
 	}
 }

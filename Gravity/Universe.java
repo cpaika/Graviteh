@@ -153,7 +153,7 @@ public class Universe
 	}
 	public void generateSmallTest()
 	{
-		center = addBody(new Planet(500,500,10000,20,20));
+		center = addBody(new Planet(500,500,100,20,20));
 		Planet p = new Planet(600,500,1,20,20);
 		p.fixIntoOrbit(center);
 		addBody(p);

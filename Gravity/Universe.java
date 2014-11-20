@@ -20,8 +20,8 @@ public class Universe
 		added = new ArrayList<Body>();
 		events = new ArrayList<ControlEvent>();
 		laserBeams = new ArrayList<LaserBeam>();
-		generateTest();
-		//generateSmallTest();
+		//generateTest();
+		generateSmallTest();
 	}
 	
 	/**
@@ -137,24 +137,24 @@ public class Universe
 	 */
 	public void generateTest()
 	{
-		center = addBody(new Planet(500,500,5000,20,20));
+		center = addBody(new Planet(500,500,5000,200,200));
 		Planet p1 = new Planet(900,500,5,20,20);
 		p1.fixIntoOrbit(center);
 		addBody(p1);
 		
-		Planet p2 = new Planet(800,500,5,20,20);
+		Planet p2 = new Planet(800,500,5,200,200);
 		p2.fixIntoOrbit(center);
 		addBody(p2);
 		
-		Planet p3 = new Planet(700,500,5,20,20);
+		Planet p3 = new Planet(700,500,5,200,200);
 		p3.fixIntoOrbit(center);
 		addBody(p3);
 		
-		Planet p4 = new Planet(600,500,5,20,20);
+		Planet p4 = new Planet(600,500,5,200,200);
 		p4.fixIntoOrbit(center);
 		addBody(p4);
 		
-		Planet p5 = new Planet(400,500,5,20,20);
+		Planet p5 = new Planet(400,500,5,200,200);
 		p5.fixIntoOrbit(center);
 		addBody(p5);
 		
@@ -163,12 +163,13 @@ public class Universe
 	}
 	public void generateSmallTest()
 	{
-		center = addBody(new Planet(500,500,100,20,20));
-		Planet p = new Planet(600,500,1,20,20);
+		center = addBody(new Planet(500,500,100000,100,100));
+		Planet p = new Planet(2000,500,1,50,50);
 		p.fixIntoOrbit(center);
 		addBody(p);
 		
 		SpaceShip first = new SpaceShip(new Vector(50,50), new Vector(0,0), 5, new Vector(20, 20));
+		first.fixIntoOrbit(center);
 		bodies.addSetPlayer(first);
 	}
 	/** Returns a reference to the current player controlled body

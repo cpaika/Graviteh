@@ -8,6 +8,9 @@ public class SpaceShip extends Body
 	private static final double ROTCONSTANT = .025;
 	private static final double SPEED_CONST = 2;
 	private static final Vector rotationOffset = new Vector(0,-1);
+	private double lastBulletTime;
+	private final int BULLET_INTERVAL = 250;
+	
 	Vector direction;
 	Color c;
 	BufferedImage self;
@@ -21,6 +24,7 @@ public class SpaceShip extends Body
 			System.err.println("spaceship image didnt load");
 		}
 		direction = rotationOffset;
+		lastBulletTime = System.currentTimeMillis();
 	}
 
 	@Override
@@ -108,7 +112,11 @@ public class SpaceShip extends Body
 	 */
 	public void spaceButton()
 	{
-		Vector start = this.centerLocation.addition(direction.multiplyBy(this.dimensions.getMagnitude()));
-		Universe.getInstance().newLaserBeam(start, direction.multiplyBy(20).addition(this.velocity));
+		if((System.currentTimeMillis() - lastBulletTime) > BULLET_INTERVAL)
+		{
+			Vector start = this.centerLocation.addition(direction.multiplyBy(this.dimensions.getMagnitude()));
+			Universe.getInstance().newLaserBeam(start, direction.multiplyBy(20).addition(this.velocity));
+			lastBulletTime = System.currentTimeMillis();
+		}
 	}
 }
